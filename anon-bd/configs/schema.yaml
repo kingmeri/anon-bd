@@ -1,0 +1,66 @@
+salts:
+  person: DEMO_PERSON_SALT_CHANGE_ME
+  account: DEMO_ACCOUNT_SALT_CHANGE_ME
+entities:
+  users:
+    table: users
+    pk: user_id
+    canonical: email
+    uid_name: PERSON_UID
+    uid_salt: person
+    drop:
+    - nombre
+    - email
+    - telefono
+    fks: {}
+  admins:
+    table: admins
+    pk: admin_id
+    canonical: email
+    uid_name: PERSON_UID
+    uid_salt: person
+    drop:
+    - nombre
+    - email
+    - direccion
+    - salario
+    fks: {}
+  accounts:
+    table: accounts
+    pk: account_id
+    canonical: account_id
+    uid_name: ACCOUNT_UID
+    uid_salt: account
+    drop: []
+    fks:
+      user_id:
+        ref: users
+        uid: PERSON_UID
+        out_col: PERSON_UID_user
+      admin_id:
+        ref: admins
+        uid: PERSON_UID
+        out_col: PERSON_UID_admin
+  orders:
+    table: orders
+    pk: order_id
+    canonical: null
+    uid_name: null
+    uid_salt: null
+    drop: []
+    fks:
+      account_id:
+        ref: accounts
+        uid: ACCOUNT_UID
+        out_col: ACCOUNT_UID
+      product_id:
+        ref: products
+        uid: null
+  products:
+    table: products
+    pk: product_id
+    canonical: null
+    uid_name: null
+    uid_salt: null
+    drop: []
+    fks: {}

@@ -1,0 +1,31 @@
+{
+  "input": {
+    "path": "data/raw/data.csv",
+    "separator": ","
+  },
+  "output": {
+    "path": "data/output/your_table_anonymized_strict.csv",
+    "overwrite": true
+  },
+  "attributes": [
+    { "name": "age",       "role": "quasi-identifying", "hierarchy": "data/hierarchies/age_hierarchy.csv" },
+    { "name": "education", "role": "quasi-identifying", "hierarchy": "data/hierarchies/education_hierarchy.csv" },
+    { "name": "city",      "role": "quasi-identifying", "hierarchy": "data/hierarchies/city_hierarchy.csv" },
+    { "name": "cp",        "role": "sensitive"}
+   
+  ],
+  "privacy": {
+    "k": 1,
+    "suppression_limit": 1.00,
+
+    "l_diversity": [
+      { "column": "cp", "l": 2, "type": "distinct" }
+    ],
+
+    "t_closeness": [
+      { "column": "cp", "t": 2, "distance": "equal" }
+    ]
+  }
+}
+
+

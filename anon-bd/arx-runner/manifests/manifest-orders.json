@@ -1,0 +1,40 @@
+{
+  "input": {
+    "path": "../data/orders.csv",
+    "separator": ","
+  },
+  "output": {
+    "path": "../output/orders_anonymized.csv",
+    "overwrite": true
+  },
+  "attributes": [
+    {
+      "name": "order_id",
+      "role": "identifying_attribute"
+    },
+    {
+      "name": "user_id",
+      "role": "insensitive"
+    },
+    {
+      "name": "product_id",
+      "role": "insensitive"
+    },
+    {
+      "name": "quantity",
+      "role": "insensitive"
+    },
+    {
+      "name": "price",
+      "role": "insensitive"
+    },
+    {
+      "name": "order_date",
+      "role": "insensitive"
+    }
+  ],
+  "privacy": {
+    "k": 5,
+    "suppression_limit": 0.02
+  }
+}

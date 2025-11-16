@@ -1,0 +1,32 @@
+{
+  "input": {
+    "path": "../data/accounts.csv",
+    "separator": ","
+  },
+  "output": {
+    "path": "../output/accounts_anonymized.csv",
+    "overwrite": true
+  },
+  "attributes": [
+    {
+      "name": "account_id",
+      "role": "identifying_attribute"
+    },
+    {
+      "name": "user_id",
+      "role": "insensitive"
+    },
+    {
+      "name": "status",
+      "role": "insensitive"
+    },
+    {
+      "name": "created_at",
+      "role": "insensitive"
+    }
+  ],
+  "privacy": {
+    "k": 5,
+    "suppression_limit": 0.02
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "input":  { "path": "data/raw/data.csv", "separator": "," },
+  "output": { "path": "data/output/diag.csv", "overwrite": true },
+  "attributes": [
+    { "name": "age",       "role": "quasi-identifying", "hierarchy": "data/hierarchies/age_hierarchy.csv" },
+    { "name": "education", "role": "quasi-identifying", "hierarchy": "data/hierarchies/education_hierarchy.csv" },
+    { "name": "city",      "role": "quasi-identifying", "hierarchy": "data/hierarchies/city_hierarchy.csv" },
+    { "name": "cp",        "role": "quasi-identifying", "hierarchy": "data/hierarchies/cp_hierarchy.csv" }
+  ],
+  "privacy": {
+    "k": 2,
+    "suppression_limit": 1.0
+  }
+}

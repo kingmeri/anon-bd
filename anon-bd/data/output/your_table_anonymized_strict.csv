@@ -1,0 +1,301 @@
+age,education,city,cp
+"[18,44)",Grado en Ingeniería Informática,*,19826
+"[65,89)",Grado en Ingeniería Informática,*,01896
+"[65,89)",Máster en Ciencia de Datos,*,29140
+"[44,65)",Educación Secundaria Obligatoria,*,16554
+"[44,65)",Doctorado en Biología,*,17108
+"[65,89)",FP Grado Medio en Gestión Administrativa,*,35672
+"[18,44)",Doctorado en Biología,*,07281
+"[65,89)",Grado en ADE,*,13659
+"[18,44)",Maestría en Inteligencia Artificial,*,38726
+"[18,44)",Grado en Educación Primaria,*,49768
+"[44,65)",Ciclo formativo de grado medio en Cocina y Gastronomía,*,17107
+"[65,89)",Grado en ADE,*,32916
+"[65,89)",Maestría en Inteligencia Artificial,*,51230
+"[65,89)",ESO,*,13037
+"[65,89)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,08554
+"[65,89)",Doctorado en Biología,*,29370
+"[44,65)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,17829
+"[18,44)",Ciclo formativo de grado medio en Cocina y Gastronomía,*,24808
+"[65,89)",Máster en Ciencia de Datos,*,51317
+"[44,65)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,11952
+"[44,65)",Educación Secundaria Obligatoria,*,34290
+"[44,65)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,33515
+"[18,44)",Doctorado en Biología,*,48255
+"[65,89)",Grado en ADE,*,52936
+"[65,89)",Máster en Ciencia de Datos,*,10164
+"[44,65)",ESO,*,28044
+"[44,65)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,16435
+"[65,89)",Master en Dirección de Proyectos,*,51992
+"[44,65)",Doctorado en Biología,*,08891
+"[44,65)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,05748
+"[44,65)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,44890
+"[18,44)",FP Grado Medio en Gestión Administrativa,*,12893
+"[18,44)",Máster en Ciencia de Datos,*,07518
+"[44,65)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,25315
+"[65,89)",Doctorado en Biología,*,02772
+"[18,44)",ESO,*,18661
+"[65,89)",Grado en ADE,*,22373
+"[65,89)",Grado en ADE,*,47094
+"[18,44)",Doctorado en Biología,*,39746
+"[44,65)",PhD en Física,*,20262
+"[18,44)",FP Grado Medio en Gestión Administrativa,*,01936
+"[65,89)",Doctorado en Biología,*,50240
+"[65,89)",Educación Secundaria Obligatoria,*,02122
+"[18,44)",PhD en Física,*,04831
+"[18,44)",Grado en Educación Primaria,*,47153
+"[65,89)",Grado en Educación Primaria,*,39179
+"[44,65)",ESO,*,20599
+"[65,89)",Grado en ADE,*,38874
+"[65,89)",ESO,*,03196
+"[65,89)",Master en Dirección de Proyectos,*,15310
+"[65,89)",Grado en Educación Primaria,*,52777
+"[18,44)",Master en Dirección de Proyectos,*,17971
+"[44,65)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,26500
+"[44,65)",Doctorado en Biología,*,23143
+"[44,65)",Ciclo formativo de grado medio en Cocina y Gastronomía,*,49013
+"[18,44)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,10229
+"[44,65)",Doctorado en Biología,*,15131
+"[18,44)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,01677
+"[65,89)",ESO,*,51121
+"[65,89)",Doctorado en Biología,*,16506
+"[65,89)",Grado en ADE,*,49694
+"[65,89)",Doctorado en Biología,*,40581
+"[44,65)",Bachillerato,*,22199
+"[65,89)",Máster en Ciencia de Datos,*,45804
+"[44,65)",ESO,*,02715
+"[18,44)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,05738
+"[65,89)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,43131
+"[44,65)",Master en Dirección de Proyectos,*,23123
+"[18,44)",Educación Secundaria Obligatoria,*,30927
+"[44,65)",Grado en Ingeniería Informática,*,05397
+"[65,89)",Master en Dirección de Proyectos,*,51300
+"[18,44)",Doctorado en Biología,*,07488
+"[44,65)",PhD en Física,*,27662
+"[18,44)",PhD en Física,*,17955
+"[65,89)",Grado en ADE,*,28286
+"[44,65)",Máster en Ciencia de Datos,*,50924
+"[18,44)",Grado en Educación Primaria,*,26024
+"[18,44)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,32555
+"[44,65)",Maestría en Inteligencia Artificial,*,08633
+"[65,89)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,44105
+"[65,89)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,38140
+"[44,65)",FP Grado Medio en Gestión Administrativa,*,39419
+"[18,44)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,01966
+"[65,89)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,09596
+"[44,65)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,10933
+"[65,89)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,39804
+"[18,44)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,23467
+"[18,44)",Master en Dirección de Proyectos,*,33784
+"[65,89)",Máster en Ciencia de Datos,*,45017
+"[65,89)",Ciclo formativo de grado medio en Cocina y Gastronomía,*,35109
+"[44,65)",Maestría en Inteligencia Artificial,*,15829
+"[65,89)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,14796
+"[65,89)",Grado en ADE,*,25232
+"[44,65)",Doctorado en Biología,*,18530
+"[65,89)",PhD en Física,*,40606
+"[18,44)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,49867
+"[18,44)",PhD en Física,*,40603
+"[65,89)",Maestría en Inteligencia Artificial,*,16412
+"[44,65)",ESO,*,07374
+"[18,44)",PhD en Física,*,49425
+"[65,89)",Bachillerato,*,06651
+"[18,44)",Ciclo formativo de grado medio en Cocina y Gastronomía,*,51867
+"[65,89)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,15453
+"[18,44)",Educación Secundaria Obligatoria,*,28247
+"[65,89)",Grado en Educación Primaria,*,14236
+"[65,89)",Educación Secundaria Obligatoria,*,52746
+"[65,89)",Bachillerato,*,44816
+"[65,89)",PhD en Física,*,50105
+"[44,65)",Ciclo formativo de grado medio en Cocina y Gastronomía,*,46066
+"[65,89)",PhD en Física,*,25594
+"[18,44)",Master en Dirección de Proyectos,*,19146
+"[65,89)",Ciclo formativo de grado medio en Cocina y Gastronomía,*,10824
+"[44,65)",Máster en Ciencia de Datos,*,17310
+"[44,65)",Master en Dirección de Proyectos,*,49143
+"[44,65)",PhD en Física,*,48920
+"[44,65)",Bachillerato,*,32165
+"[18,44)",Maestría en Inteligencia Artificial,*,09284
+"[18,44)",PhD en Física,*,31153
+"[18,44)",Grado en Ingeniería Informática,*,24115
+"[18,44)",Grado en Educación Primaria,*,29021
+"[44,65)",Grado en Ingeniería Informática,*,37055
+"[65,89)",Grado en Educación Primaria,*,11174
+"[65,89)",Educación Secundaria Obligatoria,*,44053
+"[44,65)",Bachillerato,*,23591
+"[65,89)",Bachillerato,*,27680
+"[44,65)",Grado en Ingeniería Informática,*,42393
+"[18,44)",Grado en Educación Primaria,*,44317
+"[65,89)",Master en Dirección de Proyectos,*,52504
+"[44,65)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,39875
+"[44,65)",Maestría en Inteligencia Artificial,*,42851
+"[44,65)",PhD en Física,*,28043
+"[44,65)",Grado en ADE,*,26181
+"[18,44)",FP Grado Medio en Gestión Administrativa,*,47236
+"[44,65)",Master en Dirección de Proyectos,*,12249
+"[65,89)",Grado en Ingeniería Informática,*,34571
+"[18,44)",Ciclo formativo de grado medio en Cocina y Gastronomía,*,50416
+"[44,65)",Educación Secundaria Obligatoria,*,15049
+"[18,44)",Grado en Ingeniería Informática,*,01373
+"[18,44)",Doctorado en Biología,*,49523
+"[44,65)",Bachillerato,*,47101
+"[65,89)",FP Grado Medio en Gestión Administrativa,*,05833
+"[18,44)",Bachillerato,*,06051
+"[18,44)",Doctorado en Biología,*,22924
+"[44,65)",Maestría en Inteligencia Artificial,*,36099
+"[65,89)",FP Grado Medio en Gestión Administrativa,*,44843
+"[65,89)",Grado en ADE,*,42902
+"[18,44)",Máster en Ciencia de Datos,*,13979
+"[18,44)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,17802
+"[65,89)",FP Grado Medio en Gestión Administrativa,*,31779
+"[18,44)",Grado en Educación Primaria,*,33642
+"[65,89)",PhD en Física,*,33778
+"[18,44)",Maestría en Inteligencia Artificial,*,39134
+"[65,89)",PhD en Física,*,43536
+"[18,44)",ESO,*,17514
+"[44,65)",Grado en Educación Primaria,*,51857
+"[65,89)",ESO,*,44462
+"[18,44)",Doctorado en Biología,*,41385
+"[44,65)",Ciclo formativo de grado medio en Cocina y Gastronomía,*,36639
+"[44,65)",Doctorado en Biología,*,13266
+"[65,89)",Master en Dirección de Proyectos,*,04139
+"[65,89)",Ciclo formativo de grado medio en Cocina y Gastronomía,*,23477
+"[65,89)",FP Grado Medio en Gestión Administrativa,*,09416
+"[44,65)",Grado en ADE,*,32232
+"[44,65)",FP Grado Medio en Gestión Administrativa,*,18367
+"[44,65)",Ciclo formativo de grado medio en Cocina y Gastronomía,*,27366
+"[65,89)",Maestría en Inteligencia Artificial,*,39327
+"[18,44)",Educación Secundaria Obligatoria,*,23379
+"[18,44)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,10685
+"[18,44)",Maestría en Inteligencia Artificial,*,13296
+"[18,44)",Grado en Ingeniería Informática,*,42948
+"[18,44)",FP Grado Medio en Gestión Administrativa,*,35916
+"[18,44)",Máster en Ciencia de Datos,*,45480
+"[65,89)",Ciclo formativo de grado medio en Cocina y Gastronomía,*,41328
+"[65,89)",PhD en Física,*,24535
+"[65,89)",PhD en Física,*,50848
+"[44,65)",Grado en ADE,*,26652
+"[65,89)",FP Grado Medio en Gestión Administrativa,*,11804
+"[18,44)",Grado en ADE,*,29532
+"[65,89)",Doctorado en Biología,*,40632
+"[44,65)",Bachillerato,*,04288
+"[65,89)",Educación Secundaria Obligatoria,*,10734
+"[18,44)",ESO,*,02202
+"[44,65)",ESO,*,32694
+"[65,89)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,27860
+"[44,65)",Máster en Ciencia de Datos,*,48132
+"[44,65)",Bachillerato,*,50614
+"[18,44)",Bachillerato,*,34095
+"[44,65)",ESO,*,33725
+"[18,44)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,31084
+"[18,44)",Grado en ADE,*,28935
+"[65,89)",PhD en Física,*,38137
+"[44,65)",Doctorado en Biología,*,50958
+"[44,65)",Bachillerato,*,09800
+"[44,65)",Maestría en Inteligencia Artificial,*,22593
+"[65,89)",Master en Dirección de Proyectos,*,24782
+"[18,44)",Grado en Educación Primaria,*,52795
+"[18,44)",Bachillerato,*,49946
+"[18,44)",Ciclo formativo de grado medio en Cocina y Gastronomía,*,05253
+"[18,44)",Grado en Ingeniería Informática,*,38590
+"[65,89)",Doctorado en Biología,*,03095
+"[44,65)",PhD en Física,*,28616
+"[65,89)",PhD en Física,*,09171
+"[44,65)",Educación Secundaria Obligatoria,*,07564
+"[65,89)",Grado en ADE,*,01572
+"[44,65)",Master en Dirección de Proyectos,*,25465
+"[18,44)",Grado en ADE,*,36522
+"[65,89)",Máster en Ciencia de Datos,*,38763
+"[65,89)",Educación Secundaria Obligatoria,*,48799
+"[18,44)",ESO,*,27492
+"[65,89)",Grado en Ingeniería Informática,*,13599
+"[18,44)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,08931
+"[65,89)",Máster en Ciencia de Datos,*,44119
+"[65,89)",Grado en ADE,*,41117
+"[44,65)",Master en Dirección de Proyectos,*,38087
+"[65,89)",Grado en ADE,*,26657
+"[18,44)",PhD en Física,*,38418
+"[18,44)",ESO,*,48774
+"[18,44)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,11671
+"[44,65)",FP Grado Medio en Gestión Administrativa,*,38333
+"[65,89)",PhD en Física,*,39898
+"[18,44)",Grado en Ingeniería Informática,*,43762
+"[44,65)",Grado en Educación Primaria,*,33270
+"[65,89)",Master en Dirección de Proyectos,*,42364
+"[18,44)",Máster en Ciencia de Datos,*,28314
+"[65,89)",Bachillerato,*,17157
+"[18,44)",Bachillerato,*,50147
+"[65,89)",Bachillerato,*,05936
+"[44,65)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,29437
+"[44,65)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,39383
+"[18,44)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,07729
+"[44,65)",Doctorado en Biología,*,10552
+"[65,89)",FP Grado Medio en Gestión Administrativa,*,50936
+"[18,44)",Ciclo formativo de grado medio en Cocina y Gastronomía,*,19780
+"[65,89)",Ciclo formativo de grado medio en Cocina y Gastronomía,*,32479
+"[44,65)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,08376
+"[65,89)",Grado en Ingeniería Informática,*,34986
+"[65,89)",FP Grado Medio en Gestión Administrativa,*,01717
+"[44,65)",Maestría en Inteligencia Artificial,*,45951
+"[18,44)",Ciclo formativo de grado medio en Cocina y Gastronomía,*,23118
+"[44,65)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,15850
+"[18,44)",Educación Secundaria Obligatoria,*,46637
+"[44,65)",Maestría en Inteligencia Artificial,*,07121
+"[18,44)",Educación Secundaria Obligatoria,*,25588
+"[44,65)",Bachillerato,*,02686
+"[44,65)",Master en Dirección de Proyectos,*,29012
+"[18,44)",PhD en Física,*,05454
+"[65,89)",PhD en Física,*,38825
+"[44,65)",Ciclo formativo de grado medio en Cocina y Gastronomía,*,23295
+"[65,89)",FP Grado Medio en Gestión Administrativa,*,51458
+"[18,44)",Bachillerato,*,17442
+"[18,44)",Maestría en Inteligencia Artificial,*,01301
+"[44,65)",PhD en Física,*,27918
+"[18,44)",Doctorado en Biología,*,39781
+"[18,44)",Educación Secundaria Obligatoria,*,29110
+"[65,89)",Master en Dirección de Proyectos,*,21997
+"[18,44)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,03879
+"[65,89)",Grado en Educación Primaria,*,36283
+"[18,44)",Bachillerato,*,41836
+"[18,44)",Maestría en Inteligencia Artificial,*,03106
+"[44,65)",Maestría en Inteligencia Artificial,*,35999
+"[65,89)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,02665
+"[18,44)",PhD en Física,*,08650
+"[18,44)",Bachillerato,*,33090
+"[65,89)",PhD en Física,*,36897
+"[65,89)",PhD en Física,*,45028
+"[44,65)",Grado en Educación Primaria,*,13240
+"[44,65)",Grado en Ingeniería Informática,*,24143
+"[18,44)",Maestría en Inteligencia Artificial,*,45776
+"[44,65)",ESO,*,43198
+"[44,65)",Educación Secundaria Obligatoria,*,01910
+"[18,44)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,16656
+"[18,44)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,48036
+"[18,44)",Maestría en Inteligencia Artificial,*,01005
+"[65,89)",Grado en ADE,*,09051
+"[44,65)",Grado en Ingeniería Informática,*,43605
+"[44,65)",Maestría en Inteligencia Artificial,*,51801
+"[44,65)",Master en Dirección de Proyectos,*,51238
+"[65,89)",Grado en ADE,*,15849
+"[18,44)",Máster en Ciencia de Datos,*,13057
+"[18,44)",Grado en Ingeniería Informática,*,35800
+"[18,44)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,51927
+"[44,65)",Educación Secundaria Obligatoria,*,07772
+"[65,89)",FP Grado Medio en Gestión Administrativa,*,44698
+"[44,65)",Doctorado en Biología,*,43837
+"[44,65)",Doctorado en Biología,*,24040
+"[65,89)",Master en Dirección de Proyectos,*,24201
+"[18,44)",Grado en ADE,*,06124
+"[44,65)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,37504
+"[44,65)",FP Grado Superior en Desarrollo de Aplicaciones Web,*,29745
+"[44,65)",Grado en Ingeniería Informática,*,29630
+"[65,89)",Doctorado en Biología,*,05851
+"[18,44)",Master en Dirección de Proyectos,*,24155
+"[65,89)",Grado en ADE,*,43734
+"[18,44)",FP Grado Medio en Gestión Administrativa,*,03193
+"[44,65)",PhD en Física,*,01270
+"[44,65)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,06709
+"[65,89)",FP Grado Medio en Gestión Administrativa,*,28980
+"[44,65)",ESO,*,39611
+"[18,44)",Bachillerato,*,27054
+"[18,44)",Ciclo Formativo de Grado Superior en Administración de Sistemas,*,04616

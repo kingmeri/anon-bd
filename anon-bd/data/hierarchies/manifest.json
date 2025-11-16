@@ -1,0 +1,30 @@
+{
+  "dataset": "datos.csv",
+  "output_dir": "hierarchies",
+  "attributes": [
+    {
+      "column": "Age",
+      "type": "age",
+      "hierarchy_csv": "hierarchies/age_hierarchy.csv",
+      "role": "QI"
+    },
+    {
+      "column": "municipio",
+      "type": "city",
+      "hierarchy_csv": "hierarchies/city_hierarchy.csv",
+      "role": "QI"
+    },
+    {
+      "column": "cp",
+      "type": "postal_code",
+      "hierarchy_csv": "hierarchies/cp_hierarchy.csv",
+      "role": "QI"
+    },
+    {
+      "column": "titulo",
+      "type": "education_title",
+      "hierarchy_csv": "hierarchies/education_hierarchy.csv",
+      "role": "QI"
+    }
+  ]
+}

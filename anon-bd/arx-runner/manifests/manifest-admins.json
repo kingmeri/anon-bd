@@ -1,0 +1,36 @@
+{
+  "input": {
+    "path": "../data/admins.csv",
+    "separator": ","
+  },
+  "output": {
+    "path": "../output/admins_anonymized.csv",
+    "overwrite": true
+  },
+  "attributes": [
+    {
+      "name": "admin_id",
+      "role": "identifying_attribute"
+    },
+    {
+      "name": "name",
+      "role": "identifying_attribute"
+    },
+    {
+      "name": "email",
+      "role": "identifying_attribute"
+    },
+    {
+      "name": "role",
+      "role": "insensitive"
+    },
+    {
+      "name": "created_at",
+      "role": "insensitive"
+    }
+  ],
+  "privacy": {
+    "k": 5,
+    "suppression_limit": 0.02
+  }
+}

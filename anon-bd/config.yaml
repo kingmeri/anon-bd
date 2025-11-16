@@ -1,0 +1,19 @@
+dataset: "datos.csv"
+output_dir: "hierarchies"
+
+params:
+  k: 10
+  age_bins: "auto"                # usa ~2*floor(n/k) (lo calcula jerarquias-num.py)
+  city_reference_csv: "localidades_referencia.csv"
+
+columns:
+  Age: age
+  municipio: city
+  cp: postal_code
+  titulo: education_title
+
+roles:
+  Age: QI
+  municipio: QI
+  cp: QI
+  titulo: QI

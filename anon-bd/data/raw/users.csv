@@ -1,0 +1,4 @@
+user_id,nombre,email,telefono,edad,municipio,cp,titulo
+U001,Ana Martínez,ana@example.com,+34 600111222,29,Madrid,28013,Grado en ADE
+U002,Pedro Gómez,pedro@example.com,+34 600222333,41,Valencia,46007,Máster en Ciencia de Datos
+U003,Lucía Núñez,lucia@example.com,+34 600333444,35,Sevilla,41001,Bachillerato

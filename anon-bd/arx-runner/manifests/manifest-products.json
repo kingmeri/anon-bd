@@ -1,0 +1,32 @@
+{
+  "input": {
+    "path": "../data/products.csv",
+    "separator": ","
+  },
+  "output": {
+    "path": "../output/products_anonymized.csv",
+    "overwrite": true
+  },
+  "attributes": [
+    {
+      "name": "product_id",
+      "role": "identifying_attribute"
+    },
+    {
+      "name": "name",
+      "role": "insensitive"
+    },
+    {
+      "name": "category",
+      "role": "insensitive"
+    },
+    {
+      "name": "price",
+      "role": "insensitive"
+    }
+  ],
+  "privacy": {
+    "k": 5,
+    "suppression_limit": 0.02
+  }
+}

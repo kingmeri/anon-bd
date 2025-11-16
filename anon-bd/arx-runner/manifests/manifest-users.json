@@ -1,0 +1,52 @@
+{
+  "input": {
+    "path": "./data/raw/users.csv",
+    "separator": ","
+  },
+  "output": {
+    "path": "./data/output/users_anonymized.csv",
+    "overwrite": true
+  },
+  "attributes": [
+    {
+      "name": "user_id",
+      "role": "identifying_attribute"
+    },
+    {
+      "name": "name",
+      "role": "identifying_attribute"
+    },
+    {
+      "name": "email",
+      "role": "identifying_attribute"
+    },
+    {
+      "name": "city",
+      "role": "quasi-identifying",
+      "hierarchy": "./data/hierarchies/city_hierarchy.csv"
+    },
+    {
+      "name": "cp",
+      "role": "quasi-identifying",
+      "hierarchy": "./data/hierarchies/cp_hierarchy.csv"
+    },
+    {
+      "name": "age",
+      "role": "quasi-identifying",
+      "hierarchy": "./data/hierarchies/age_hierarchy.csv"
+    },
+    {
+      "name": "education_title",
+      "role": "quasi-identifying",
+      "hierarchy": "./data/hierarchies/education_hierarchy.csv"
+    },
+    {
+      "name": "created_at",
+      "role": "insensitive"
+    }
+  ],
+  "privacy": {
+    "k": 5,
+    "suppression_limit": 0.02
+  }
+}
