@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "name": "dni",
+      "category": "identificador_directo",
+      "risk": "alto",
+      "recommended_treatment": "cifrado de datos",
+      "rationale": "Es un identificador único y personalizable para cada individuo",
+      "confidence": 0.99
+    },
+    {
+      "name": "edad",
+      "category": "cuasi_identificador",
+      "risk": "bajo",
+      "recommended_treatment": "no cifrado de datos",
+      "rationale": "No es un identificador directo, pero puede ser utilizado para identificar a una persona",
+      "confidence": 0.85
+    },
+    {
+      "name": "ciudad",
+      "category": "cuasi_identificador",
+      "risk": "bajo",
+      "recommended_treatment": "no cifrado de datos",
+      "rationale": "No es un identificador directo, pero puede ser utilizado para identificar a una persona en una región específica",
+      "confidence": 0.78
+    },
+    {
+      "name": "diagnosticos_medicos",
+      "category": "atributo_sensible",
+      "risk": "muy_alto",
+      "recommended_treatment": "cifrado de datos y gestión de acceso estricto",
+      "rationale": "Es información sensible que puede afectar la salud y el bienestar de una persona",
+      "confidence": 0.95
+    }
+  ]
+}
