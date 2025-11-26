@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import argparse, json, csv, unicodedata, re
+import argparse, json, csv, unicodedata, re, os
 from collections import Counter
 
 # ---------------- Normalización ----------------
@@ -13,6 +13,11 @@ def normalize_text(s: str) -> str:
     s = re.sub(r"[_\-\.,;/\\|()\[\]{}]+", " ", s)
     s = re.sub(r"\s+", " ", s)
     return s
+
+def sanitize_filename(s: str) -> str:
+    s = normalize_text(s)
+    s = re.sub(r"[^a-z0-9]+", "-", s).strip("-")
+    return s or "salida"
 
 CATEGORY_CANON = {
     "identificador_directo": "identificador_directo",
@@ -142,24 +147,50 @@ def evaluate_categories_only(predictions_path, canon_map, alias_map):
     }
     return report
 
+# ---------- Impresión bonita stdout ------------
 def print_stdout(report):
+    # resumen
     print("=== MÉTRICAS (solo category) ===")
     print(f"Evaluadas: {report['n_evaluated']}  |  Aciertos: {report['n_correct']}  |  Accuracy: {report['accuracy']:.4f}\n")
     print("F1/Prec/Rec por clase:")
     for lab, m in report["per_class"].items():
         print(f"  - {lab:22s}  F1={m['f1']:.4f}  Prec={m['precision']:.4f}  Rec={m['recall']:.4f}  Soporte={m['support']}")
+
+    # matriz con bordes
+    labels = ["identificador_directo","cuasi_identificador","atributo_sensible","no_sensible"]
+    conf = report["confusion_matrix"]
+    col_headers = ["true \\ pred"] + labels
+    data_rows = []
+    for t in labels:
+        row = [t] + [str(conf[t][p]) for p in labels]
+        data_rows.append(row)
+
+    widths = [0]*len(col_headers)
+    for i, h in enumerate(col_headers):
+        widths[i] = max(widths[i], len(h))
+    for row in data_rows:
+        for i, cell in enumerate(row):
+            widths[i] = max(widths[i], len(cell))
+
+    def sep(line_char="-", corner_char="+"):
+        return corner_char + corner_char.join(line_char*(w+2) for w in widths) + corner_char
+    def fmt_row(cells):
+        return "| " + " | ".join(c.ljust(w) for c, w in zip(cells, widths)) + " |"
+
     print("\nMatriz de confusión (true x pred):")
-    labs = ["identificador_directo","cuasi_identificador","atributo_sensible","no_sensible"]
-    header = ",".join(["true\\pred"] + labs)
-    print(header)
-    for t in labs:
-        row = [t] + [str(report["confusion_matrix"][t][p]) for p in labs]
-        print(",".join(row))
+    print(sep())
+    print(fmt_row(col_headers))
+    print(sep("=","+"))
+    for r in data_rows:
+        print(fmt_row(r))
+        print(sep())
+
     if report["unmapped_columns"]:
         print("\n[WARN] unmapped_columns:", report["unmapped_columns"])
     if report["invalid_categories"]:
         print("\n[WARN] invalid_categories:", report["invalid_categories"])
 
+# --------------- Exportadores CSV --------------
 def export_rows_csv(rows, path):
     with open(path, "w", newline="", encoding="utf-8") as f:
         fieldnames = ["name_input","name_canonical","pred_category","gold_category",
@@ -169,7 +200,6 @@ def export_rows_csv(rows, path):
         wr.writerows(rows)
 
 def export_metrics_csv(report, path):
-    # Una fila global + una por clase
     with open(path, "w", newline="", encoding="utf-8") as f:
         wr = csv.writer(f)
         wr.writerow(["metric","label","value"])
@@ -183,17 +213,14 @@ def export_metrics_csv(report, path):
             wr.writerow(["support",lab,m["support"]])
 
 # -------------------- CLI -----------------------
-# ... (todo tu código anterior igual, incluida la función global print_stdout
-# con la tabla bonita de la matriz de confusión)
-
-# -------------------- CLI -----------------------
 def main():
     ap = argparse.ArgumentParser(description="Evalúa SOLO la categoría. Métricas por stdout y CSV opcionales.")
     ap.add_argument("--canonical_csv", required=True, help="Ruta a canonical_entities.csv")
     ap.add_argument("--aliases_json", required=True, help="Ruta a aliases.json")
     ap.add_argument("--predictions", required=True, help="Ruta a predictions.json (salida LLM)")
-    ap.add_argument("--out_rows_csv", default=None, help="CSV con resultados fila a fila")
-    ap.add_argument("--out_metrics_csv", default=None, help="CSV con métricas (accuracy/F1/etc.)")
+    ap.add_argument("--db_name", default=None, help="Nombre de la base de datos para nombrar outputs automáticamente")
+    ap.add_argument("--out_rows_csv", default=None, help="CSV resultados fila a fila (override del nombre automático)")
+    ap.add_argument("--out_metrics_csv", default=None, help="CSV métricas (override del nombre automático)")
     args = ap.parse_args()
 
     canon = load_canonical(args.canonical_csv)
@@ -201,16 +228,26 @@ def main():
     alias_map = build_alias_map(canon, aliases)
     report = evaluate_categories_only(args.predictions, canon, alias_map)
 
-    # 1) Imprime SIEMPRE a stdout
+    # stdout siempre
     print_stdout(report)
 
-    # 2) CSVs opcionales
-    if args.out_rows_csv:
-        export_rows_csv(report["rows"], args.out_rows_csv)
-        print(f"\n[OK] Resultados fila a fila exportados en: {args.out_rows_csv}")
-    if args.out_metrics_csv:
-        export_metrics_csv(report, args.out_metrics_csv)
-        print(f"[OK] Métricas exportadas en: {args.out_metrics_csv}")
+    # Derivar nombres si no se pasaron y hay db_name
+    auto_rows = None
+    auto_metrics = None
+    if args.db_name and not args.out_rows_csv:
+        auto_rows = f"{sanitize_filename(args.db_name)}-resultados_fila_a_fila.csv"
+    if args.db_name and not args.out_metrics_csv:
+        auto_metrics = f"{sanitize_filename(args.db_name)}-metricas.csv"
+
+    rows_path = args.out_rows_csv or auto_rows
+    metrics_path = args.out_metrics_csv or auto_metrics
+
+    if rows_path:
+        export_rows_csv(report["rows"], rows_path)
+        print(f"\n[OK] Resultados fila a fila exportados en: {rows_path}")
+    if metrics_path:
+        export_metrics_csv(report, metrics_path)
+        print(f"[OK] Métricas exportadas en: {metrics_path}")
 
 if __name__ == "__main__":
     main()

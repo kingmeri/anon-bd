@@ -1,0 +1,5 @@
+name_input,name_canonical,pred_category,gold_category,risk_info,recommended_treatment_info,correct
+dni,DNI,identificador_directo,identificador_directo,alto,cifrado de datos,True
+edad,Edad,cuasi_identificador,cuasi_identificador,bajo,no cifrado de datos,True
+ciudad,Ciudad,cuasi_identificador,cuasi_identificador,bajo,no cifrado de datos,True
+diagnosticos_medicos,Diagnósticos médicos,atributo_sensible,atributo_sensible,muy_alto,cifrado de datos y gestión de acceso estricto,True
