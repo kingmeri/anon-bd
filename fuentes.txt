@@ -1,0 +1,3 @@
+Bases da datos Sakila_es (usada para evaluacion de ollama):
+https://gist.github.com/josejuansanchez/122675071cdacce7f7ba61051707dae3
+https://gist.github.com/josejuansanchez/b44d3d1f84800eb07e188958e99de9bc
