@@ -14,11 +14,6 @@ def normalize_text(s: str) -> str:
     s = re.sub(r"\s+", " ", s)
     return s
 
-def sanitize_filename(s: str) -> str:
-    s = normalize_text(s)
-    s = re.sub(r"[^a-z0-9]+", "-", s).strip("-")
-    return s or "salida"
-
 CATEGORY_CANON = {
     "identificador_directo": "identificador_directo",
     "identificador directo": "identificador_directo",
@@ -71,7 +66,7 @@ def build_alias_map(canon_map, aliases_dict):
     return alias_to_canon
 
 # ----------- Evaluación SOLO categoría ----------
-def evaluate_categories_only(predictions_path, canon_map, alias_map):
+def evaluate_categories_only(predictions_path, canon_map, alias_map, exclude_unmapped=True):
     with open(predictions_path, encoding="utf-8") as f:
         data = json.load(f)
     items = data.get("items", [])
@@ -79,6 +74,7 @@ def evaluate_categories_only(predictions_path, canon_map, alias_map):
     y_true, y_pred = [], []
     rows = []
     unmapped, badcat = [], []
+    unmapped_rows = []
 
     for it in items:
         raw_name = it.get("name","")
@@ -92,7 +88,22 @@ def evaluate_categories_only(predictions_path, canon_map, alias_map):
             for c in canon_map.keys():
                 if normalize_text(c) == norm:
                     canon = c; break
+
         if canon is None:
+            # sin ground truth -> fuera de métricas pero sí en salida
+            pred_norm = normalize_category(raw_cat)
+            row = {
+                "name_input": raw_name,
+                "name_canonical": "",
+                "pred_category": pred_norm,
+                "gold_category": "",
+                "risk_info": raw_risk,
+                "recommended_treatment_info": raw_treat,
+                "correct": "",
+                "in_eval": False
+            }
+            rows.append(row)
+            unmapped_rows.append(row)
             unmapped.append(raw_name)
             continue
 
@@ -102,18 +113,24 @@ def evaluate_categories_only(predictions_path, canon_map, alias_map):
             badcat.append((raw_name, raw_cat))
             pred = "no_sensible"  # fallback
 
-        y_true.append(gold); y_pred.append(pred)
-        rows.append({
+        # fila normal (mapeada)
+        row = {
             "name_input": raw_name,
             "name_canonical": canon,
             "pred_category": pred,
             "gold_category": gold,
-            "risk_info": raw_risk,                   # informativo
-            "recommended_treatment_info": raw_treat, # informativo
-            "correct": pred == gold
-        })
+            "risk_info": raw_risk,
+            "recommended_treatment_info": raw_treat,
+            "correct": pred == gold,
+            "in_eval": True
+        }
+        rows.append(row)
 
-    # Métricas
+        # solo añadimos a métricas si está mapeado
+        if not exclude_unmapped or canon is not None:
+            y_true.append(gold); y_pred.append(pred)
+
+    # Métricas (solo sobre mapeados)
     total = len(y_true)
     correct = sum(1 for a,b in zip(y_pred,y_true) if a==b)
     accuracy = correct/total if total else 0.0
@@ -124,8 +141,11 @@ def evaluate_categories_only(predictions_path, canon_map, alias_map):
 
     for t,p in zip(y_true,y_pred):
         conf[t][p]+=1
-        if t==p: prec_num[p]+=1; rec_num[t]+=1
-        prec_den[p]+=1; rec_den[t]+=1
+        if t==p:
+            prec_num[p]+=1
+            rec_num[t]+=1
+        prec_den[p]+=1
+        rec_den[t]+=1
 
     per_class={}
     for lab in labels:
@@ -136,29 +156,36 @@ def evaluate_categories_only(predictions_path, canon_map, alias_map):
                           "f1": round(f1,4), "support": rec_den[lab]}
 
     report = {
-        "n_evaluated": total,
+        "n_evaluated": total,                # SOLO mapeados
         "n_correct": correct,
         "accuracy": round(accuracy,4),
         "per_class": per_class,
         "confusion_matrix": conf,
-        "unmapped_columns": unmapped,
+        "unmapped_columns": sorted(set(unmapped)),
         "invalid_categories": badcat,
-        "rows": rows
+        "rows": rows,                        # todos (mapeados + unmapped)
+        "unmapped_rows": unmapped_rows       # solo unmapped
     }
     return report
 
-# ---------- Impresión bonita stdout ------------
+# ---------- Pretty print stdout ----------
 def print_stdout(report):
-    # resumen
-    print("=== MÉTRICAS (solo category) ===")
-    print(f"Evaluadas: {report['n_evaluated']}  |  Aciertos: {report['n_correct']}  |  Accuracy: {report['accuracy']:.4f}\n")
+    print("=== MÉTRICAS (solo category; excluyendo sin GT) ===")
+    print(f"Evaluadas (con GT): {report['n_evaluated']}  |  Aciertos: {report['n_correct']}  |  Accuracy: {report['accuracy']:.4f}")
+    excl = len(report["unmapped_rows"])
+    total_items = len(report["rows"])
+    pct = (excl/total_items*100) if total_items else 0
+    print(f"Excluidas (sin GT): {excl} de {total_items}  ({pct:.1f}%)\n")
+
     print("F1/Prec/Rec por clase:")
     for lab, m in report["per_class"].items():
         print(f"  - {lab:22s}  F1={m['f1']:.4f}  Prec={m['precision']:.4f}  Rec={m['recall']:.4f}  Soporte={m['support']}")
 
-    # matriz con bordes
+    # matriz bonita
     labels = ["identificador_directo","cuasi_identificador","atributo_sensible","no_sensible"]
     conf = report["confusion_matrix"]
+
+    # calcular anchos de columnas
     col_headers = ["true \\ pred"] + labels
     data_rows = []
     for t in labels:
@@ -174,10 +201,11 @@ def print_stdout(report):
 
     def sep(line_char="-", corner_char="+"):
         return corner_char + corner_char.join(line_char*(w+2) for w in widths) + corner_char
+
     def fmt_row(cells):
         return "| " + " | ".join(c.ljust(w) for c, w in zip(cells, widths)) + " |"
 
-    print("\nMatriz de confusión (true x pred):")
+    print("\nMatriz de confusión (true x pred) — solo items con GT:")
     print(sep())
     print(fmt_row(col_headers))
     print(sep("=","+"))
@@ -186,15 +214,15 @@ def print_stdout(report):
         print(sep())
 
     if report["unmapped_columns"]:
-        print("\n[WARN] unmapped_columns:", report["unmapped_columns"])
+        print("\n[INFO] Columnas sin ground truth (excluidas):", report["unmapped_columns"])
     if report["invalid_categories"]:
-        print("\n[WARN] invalid_categories:", report["invalid_categories"])
+        print("\n[WARN] Categorías inválidas (normalizadas a 'no_sensible'):", report["invalid_categories"])
 
-# --------------- Exportadores CSV --------------
+# ---------- Exports ----------
 def export_rows_csv(rows, path):
     with open(path, "w", newline="", encoding="utf-8") as f:
         fieldnames = ["name_input","name_canonical","pred_category","gold_category",
-                      "risk_info","recommended_treatment_info","correct"]
+                      "risk_info","recommended_treatment_info","correct","in_eval"]
         wr = csv.DictWriter(f, fieldnames=fieldnames)
         wr.writeheader()
         wr.writerows(rows)
@@ -203,6 +231,8 @@ def export_metrics_csv(report, path):
     with open(path, "w", newline="", encoding="utf-8") as f:
         wr = csv.writer(f)
         wr.writerow(["metric","label","value"])
+        wr.writerow(["n_items_total","all",len(report["rows"])])
+        wr.writerow(["n_excluded_unmapped","all",len(report["unmapped_rows"])])
         wr.writerow(["n_evaluated","all",report["n_evaluated"]])
         wr.writerow(["n_correct","all",report["n_correct"]])
         wr.writerow(["accuracy","all",report["accuracy"]])
@@ -214,40 +244,44 @@ def export_metrics_csv(report, path):
 
 # -------------------- CLI -----------------------
 def main():
-    ap = argparse.ArgumentParser(description="Evalúa SOLO la categoría. Métricas por stdout y CSV opcionales.")
+    ap = argparse.ArgumentParser(description="Evalúa SOLO la categoría. Excluye items sin GT de las métricas.")
     ap.add_argument("--canonical_csv", required=True, help="Ruta a canonical_entities.csv")
     ap.add_argument("--aliases_json", required=True, help="Ruta a aliases.json")
     ap.add_argument("--predictions", required=True, help="Ruta a predictions.json (salida LLM)")
-    ap.add_argument("--db_name", default=None, help="Nombre de la base de datos para nombrar outputs automáticamente")
-    ap.add_argument("--out_rows_csv", default=None, help="CSV resultados fila a fila (override del nombre automático)")
-    ap.add_argument("--out_metrics_csv", default=None, help="CSV métricas (override del nombre automático)")
+    ap.add_argument("--db_name", default=None, help="Nombre de BD para prefijar outputs (ej. sakila_es)")
+    ap.add_argument("--out_rows_csv", default=None, help="CSV con resultados fila a fila (si no se pasa, usa <db_name>-resultados_fila_a_fila.csv si db_name)")
+    ap.add_argument("--out_metrics_csv", default=None, help="CSV con métricas (si no se pasa, usa <db_name>-metricas.csv si db_name)")
+    ap.add_argument("--out_unmapped_csv", default=None, help="CSV con filas sin GT (excluidas de métricas)")
     args = ap.parse_args()
 
     canon = load_canonical(args.canonical_csv)
     aliases = load_aliases(args.aliases_json)
     alias_map = build_alias_map(canon, aliases)
-    report = evaluate_categories_only(args.predictions, canon, alias_map)
+    report = evaluate_categories_only(args.predictions, canon, alias_map, exclude_unmapped=True)
 
-    # stdout siempre
+    # nombres auto si no se pasan y hay db_name
+    if args.db_name:
+        base = args.db_name.strip()
+        if not args.out_rows_csv:
+            args.out_rows_csv = f"{base}-resultados_fila_a_fila.csv"
+        if not args.out_metrics_csv:
+            args.out_metrics_csv = f"{base}-metricas.csv"
+        if not args.out_unmapped_csv:
+            args.out_unmapped_csv = f"{base}-unmapped.csv"
+
+    # Imprime SIEMPRE a stdout
     print_stdout(report)
 
-    # Derivar nombres si no se pasaron y hay db_name
-    auto_rows = None
-    auto_metrics = None
-    if args.db_name and not args.out_rows_csv:
-        auto_rows = f"{sanitize_filename(args.db_name)}-resultados_fila_a_fila.csv"
-    if args.db_name and not args.out_metrics_csv:
-        auto_metrics = f"{sanitize_filename(args.db_name)}-metricas.csv"
-
-    rows_path = args.out_rows_csv or auto_rows
-    metrics_path = args.out_metrics_csv or auto_metrics
-
-    if rows_path:
-        export_rows_csv(report["rows"], rows_path)
-        print(f"\n[OK] Resultados fila a fila exportados en: {rows_path}")
-    if metrics_path:
-        export_metrics_csv(report, metrics_path)
-        print(f"[OK] Métricas exportadas en: {metrics_path}")
+    # CSVs opcionales
+    if args.out_rows_csv:
+        export_rows_csv(report["rows"], args.out_rows_csv)
+        print(f"\n[OK] Resultados fila a fila exportados en: {args.out_rows_csv}")
+    if args.out_metrics_csv:
+        export_metrics_csv(report, args.out_metrics_csv)
+        print(f"[OK] Métricas exportadas en: {args.out_metrics_csv}")
+    if args.out_unmapped_csv:
+        export_rows_csv(report["unmapped_rows"], args.out_unmapped_csv)
+        print(f"[OK] Unmapped exportadas en: {args.out_unmapped_csv}")
 
 if __name__ == "__main__":
     main()

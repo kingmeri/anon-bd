@@ -1,0 +1,88 @@
+name_input,name_canonical,pred_category,gold_category,risk_info,recommended_treatment_info,correct,in_eval
+id_actor,,identificador_directo,,,,,False
+nombre,,cuasi identificador atributo sensible,,,,,False
+apellidos,,cuasi identificador atributo sensible,,,,,False
+ultima_actualizacion,,cuasi identificador atributo sensible,,,,,False
+id_almacen,,identificador_directo,,,,,False
+id_empleado_jefe,,identificador_directo,,,,,False
+id_direccion,,identificador_directo,,,,,False
+ultima_actualizacion,,cuasi identificador atributo sensible,,,,,False
+id_alquiler,,identificador_directo,,,,,False
+fecha_alquiler,,cuasi identificador atributo sensible,,,,,False
+id_inventario,,identificador_directo,,,,,False
+id_cliente,,identificador_directo,,,,,False
+fecha_devolucion,,cuasi identificador atributo sensible,,,,,False
+id_empleado,,identificador_directo,,,,,False
+ultima_actualizacion,,cuasi identificador atributo sensible,,,,,False
+id_categoria,,identificador_directo,,,,,False
+nombre,,cuasi identificador atributo sensible,,,,,False
+ultima_actualizacion,,cuasi identificador atributo sensible,,,,,False
+id_ciudad,,identificador_directo,,,,,False
+nombre,,cuasi identificador atributo sensible,,,,,False
+id_pais,,identificador_directo,,,,,False
+ultima_actualizacion,,cuasi_identificador,,,,,False
+id_cliente,,identificador_directo,,,,,False
+id_almacen,,cuasi_identificador,,,,,False
+nombre,,atributo_sensible,,,,,False
+apellidos,,atributo_sensible,,,,,False
+email,Correo electrónico,atributo_sensible,identificador_directo,,,False,True
+id_direccion,,identificador_directo,,,,,False
+activo,,cuasi_identificador,,,,,False
+fecha_creacion,,cuasi_identificador,,,,,False
+ultima_actualizacion,,cuasi_identificador,,,,,False
+id_direccion,,identificador_directo,,,,,False
+direccion2,,atributo_sensible,,,,,False
+distrito,,cuasi_identificador,,,,,False
+id_ciudad,,identificador_directo,,,,,False
+codigo_postal,Código postal,cuasi_identificador,cuasi_identificador,,,True,True
+telefono,Teléfono,atributo_sensible,identificador_directo,,,False,True
+ultima_actualizacion,,cuasi_identificador,,,,,False
+id_empleado,,identificador_directo,,,,,False
+nombre,,identificador directo cuasi identificador atributo sensible no sensible,,,,,False
+apellidos,,identificador directo cuasi identificador atributo sensible no sensible,,,,,False
+id_direccion,,int,,,,,False
+imagen,,no_sensible,,,,,False
+email,Correo electrónico,no_sensible,identificador_directo,,,False,True
+id_almacen,,int no sensible,,,,,False
+activo,,booleano,,,,,False
+username,Nombre de usuario,no_sensible,identificador_directo,,,False,True
+password,,no_sensible,,,,,False
+ultima_actualizacion,,datetime cuasi identificador,,,,,False
+film_id,,int,,,,,False
+title,,string no sensible,,,,,False
+description,,string no sensible,,,,,False
+id_idioma,,int,,,,,False
+nombre,,string cuasi identificador,,,,,False
+ultima_actualizacion,,datetime,,,,,False
+id_inventario,,int no sensible,,,,,False
+id_pelicula,,int,,,,,False
+id_almacen,,int no sensible,,,,,False
+ultima_actualizacion,,datetime,,,,,False
+id_pago,,identificador directo cuasi identificador atributo sensible no sensible,,,,,False
+id_cliente,,identificador directo cuasi identificador atributo sensible no sensible,,,,,False
+id_empleado,,identificador directo cuasi identificador atributo sensible no sensible,,,,,False
+id_alquiler,,identificador directo cuasi identificador atributo sensible no sensible,,,,,False
+total,,cuasi identificador no sensible,,,,,False
+fecha_pago,,cuasi identificador atributo sensible,,,,,False
+ultima_actualizacion,,cuasi identificador atributo sensible,,,,,False
+id_pais,,identificador directo no sensible,,,,,False
+nombre,,cuasi identificador atributo sensible,,,,,False
+id_pelicula,,identificador directo no sensible,,,,,False
+titulo,,cuasi identificador atributo sensible,,,,,False
+descripcion,,cuasi identificador atributo sensible,,,,,False
+anyo_lanzamiento,,identificador directo no sensible,,,,,False
+id_idioma,,identificador directo no sensible,,,,,False
+id_idioma_original,,cuasi_identificador,,,,,False
+duracion_alquiler,,cuasi identificador no sensible,,,,,False
+rental_rate,,cuasi identificador atributo sensible,,,,,False
+duracion,,cuasi identificador no sensible,,,,,False
+replacement_cost,,cuasi identificador atributo sensible,,,,,False
+clasificacion,,identificador_directo,,,,,False
+caracteristicas_especiales,,cuasi identificador atributo sensible,,,,,False
+ultima_actualizacion,,cuasi identificador atributo sensible no sensible,,,,,False
+id_actor,,cuasi identificador atributo sensible,,,,,False
+id_pelicula,,identificador directo cuasi identificador,,,,,False
+ultima_actualizacion,,cuasi identificador atributo sensible,,,,,False
+id_pelicula,,identificador directo cuasi identificador,,,,,False
+id_categoria,,identificador directo cuasi identificador,,,,,False
+ultima_actualizacion,,cuasi identificador atributo sensible,,,,,False
