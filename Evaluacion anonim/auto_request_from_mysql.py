@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import argparse, json, csv, unicodedata, re, os
-from collections import Counter
+import argparse, re, json, math, time, os
+import mysql.connector
+import requests
 from dotenv import load_dotenv
 
-# ---------- .env helpers ----------
+# --------- cargar .env ---------
 load_dotenv()
 
 def env(key, default=None, cast=None):
@@ -17,289 +18,227 @@ def env(key, default=None, cast=None):
             return default
     return val
 
-# Defaults desde .env (puedes definirlos en tu .env si quieres)
-ENV_DB_NAME       = env("DB_NAME", None)
-ENV_PREDICTIONS   = env("OUT_PREDICTIONS", "predictions.json")
-ENV_CANON_CSV     = env("CANONICAL_CSV", "canonical_entities.csv")
-ENV_ALIASES_JSON  = env("ALIASES_JSON", "aliases.json")
+# Defaults desde .env (con fallback)
+ENV_HOST = env("DB_HOST", "127.0.0.1")
+ENV_PORT = env("DB_PORT", 3306, int)
+ENV_USER = env("DB_USER", "gdpr_ro")
+ENV_PASS = env("DB_PASS", "ro_pass")
+ENV_NAME = env("DB_NAME", "sakila_es")
 
-# ---------------- Normalización ----------------
-def normalize_text(s: str) -> str:
-    if s is None: return ""
-    s = unicodedata.normalize("NFKD", s)
-    s = "".join(ch for ch in s if not unicodedata.combining(ch))
-    s = s.lower().strip()
-    s = re.sub(r"[_\-\.,;/\\|()\[\]{}]+", " ", s)
-    s = re.sub(r"\s+", " ", s)
+ENV_OLLAMA_URL = env("OLLAMA_URL", "http://localhost:11434/api/generate")
+ENV_MODEL      = env("OLLAMA_MODEL", "llama3.2:3b-instruct-q4_K_M")
+
+ENV_TABLE_LIKE = env("TABLE_LIKE", "%")
+ENV_SAMPLE_ROWS= env("SAMPLE_ROWS", 5, int)
+ENV_BATCH_SIZE = env("BATCH_SIZE", 20, int)
+ENV_SLEEP_S    = env("SLEEP_S", 0.3, float)
+ENV_OUT_PRED   = env("OUT_PREDICTIONS", "predictions.json")
+
+# ---------- helpers ----------
+def map_mysql_type(dt: str, column_type: str) -> str:
+    dt = (dt or "").lower()
+    ct = (column_type or "").lower()
+    if dt in {"varchar","char","text","tinytext","mediumtext","longtext","enum","set"}:
+        return "string"
+    if dt in {"int","bigint","smallint","mediumint","tinyint"}:
+        if dt == "tinyint" and ("(1)" in ct or ct.strip()=="tinyint"):
+            return "bool"
+        return "int"
+    if dt in {"decimal","float","double","real"}:
+        return "float"
+    if dt in {"date"}:
+        return "date"
+    if dt in {"datetime","timestamp"}:
+        return "datetime"
+    if dt in {"json"}:
+        return "json"
+    if dt in {"time","year","binary","varbinary","blob"}:
+        return "other"
+    return "other"
+
+_PATTERNS = [
+    ("IBAN", re.compile(r"[A-Z]{2}\d{2}[A-Z0-9]{10,30}", re.I)),
+    ("DNI", re.compile(r"\b\d{7,8}[A-Z]\b", re.I)),
+    ("NIE", re.compile(r"\b[XYZ]\d{7}[A-Z]\b", re.I)),
+    ("EMAIL", re.compile(r"[^@\s]+@[^@\s]+\.[^@\s]+", re.I)),
+    ("TEL", re.compile(r"\+?\d[\d\s\-\(\)]{7,}\d")),
+    ("TARJETA", re.compile(r"\b(?:\d[ -]*?){13,19}\b")),
+]
+def mask_value(v):
+    s = str(v)
+    for label, rx in _PATTERNS:
+        if rx.search(s):
+            return f"<MASK:{label}>"
+    if len(s) > 64:
+        return s[:61] + "..."
     return s
 
-CATEGORY_CANON = {
-    "identificador_directo": "identificador_directo",
-    "identificador directo": "identificador_directo",
-    "cuasi_identificador": "cuasi_identificador",
-    "cuasi identificador": "cuasi_identificador",
-    "quasi_identificador": "cuasi_identificador",
-    "quasi identificador": "cuasi_identificador",
-    "atributo_sensible": "atributo_sensible",
-    "atributo sensible": "atributo_sensible",
-    "no_sensible": "no_sensible",
-    "no sensible": "no_sensible",
-}
-ALLOWED = ["identificador_directo","cuasi_identificador","atributo_sensible","no_sensible"]
+def chunked(seq, n):
+    for i in range(0, len(seq), n):
+        yield seq[i:i+n]
 
-def normalize_category(cat: str) -> str:
-    key = normalize_text(cat)
-    return CATEGORY_CANON.get(key, key)
-
-# ------------- Carga canon y alias -------------
-def load_canonical(csv_path: str):
-    canon = {}
-    with open(csv_path, newline="", encoding="utf-8") as f:
-        for row in csv.DictReader(f):
-            name = row["Entidad"].strip()
-            tipo = normalize_text(row["Tipo"])
-            if "identificador" in tipo and "directo" in tipo:
-                cat = "identificador_directo"
-            elif "cuasi" in tipo:
-                cat = "cuasi_identificador"
-            elif "sensible" in tipo and "no" not in tipo:
-                cat = "atributo_sensible"
-            elif "no" in tipo and "sensible" in tipo:
-                cat = "no_sensible"
-            else:
-                cat = tipo
-            canon[name] = cat
-    return canon
-
-def load_aliases(json_path: str):
-    with open(json_path, encoding="utf-8") as f:
-        return json.load(f)
-
-def build_alias_map(canon_map, aliases_dict):
-    alias_to_canon = {}
-    for canon in canon_map.keys():
-        alias_to_canon[normalize_text(canon)] = canon
-    for canon, alias_list in aliases_dict.items():
-        for a in alias_list:
-            alias_to_canon[normalize_text(a)] = canon
-    return alias_to_canon
-
-# ----------- Evaluación SOLO categoría ----------
-def evaluate_categories_only(predictions_path, canon_map, alias_map, exclude_unmapped=True):
-    with open(predictions_path, encoding="utf-8") as f:
-        data = json.load(f)
-    items = data.get("items", [])
-
-    y_true, y_pred = [], []
-    rows = []
-    unmapped, badcat = [], []
-    unmapped_rows = []
-
-    for it in items:
-        raw_name = it.get("name","")
-        raw_cat  = it.get("category","")
-        raw_risk = it.get("risk","")
-        raw_treat= it.get("recommended_treatment","")
-
-        norm = normalize_text(raw_name)
-        canon = alias_map.get(norm)
-        if canon is None:
-            for c in canon_map.keys():
-                if normalize_text(c) == norm:
-                    canon = c; break
-
-        if canon is None:
-            pred_norm = normalize_category(raw_cat)
-            row = {
-                "name_input": raw_name,
-                "name_canonical": "",
-                "pred_category": pred_norm,
-                "gold_category": "",
-                "risk_info": raw_risk,
-                "recommended_treatment_info": raw_treat,
-                "correct": "",
-                "in_eval": False
-            }
-            rows.append(row)
-            unmapped_rows.append(row)
-            unmapped.append(raw_name)
-            continue
-
-        gold = canon_map[canon]
-        pred = normalize_category(raw_cat)
-        if pred not in ALLOWED:
-            badcat.append((raw_name, raw_cat))
-            pred = "no_sensible"  # fallback
-
-        row = {
-            "name_input": raw_name,
-            "name_canonical": canon,
-            "pred_category": pred,
-            "gold_category": gold,
-            "risk_info": raw_risk,
-            "recommended_treatment_info": raw_treat,
-            "correct": pred == gold,
-            "in_eval": True
-        }
-        rows.append(row)
-
-        if not exclude_unmapped or canon is not None:
-            y_true.append(gold); y_pred.append(pred)
-
-    # Métricas (solo mapeados)
-    total = len(y_true)
-    correct = sum(1 for a,b in zip(y_pred,y_true) if a==b)
-    accuracy = correct/total if total else 0.0
-
-    labels = ALLOWED
-    conf = {a:{b:0 for b in labels} for a in labels}
-    prec_num=Counter(); prec_den=Counter(); rec_num=Counter(); rec_den=Counter()
-
-    for t,p in zip(y_true,y_pred):
-        conf[t][p]+=1
-        if t==p:
-            prec_num[p]+=1
-            rec_num[t]+=1
-        prec_den[p]+=1
-        rec_den[t]+=1
-
-    per_class={}
-    for lab in labels:
-        precision = (prec_num[lab]/prec_den[lab]) if prec_den[lab] else 0.0
-        recall    = (rec_num[lab]/rec_den[lab]) if rec_den[lab] else 0.0
-        f1 = (2*precision*recall/(precision+recall)) if (precision+recall)>0 else 0.0
-        per_class[lab] = {"precision": round(precision,4), "recall": round(recall,4),
-                          "f1": round(f1,4), "support": rec_den[lab]}
-
-    report = {
-        "n_evaluated": total,                # SOLO mapeados
-        "n_correct": correct,
-        "accuracy": round(accuracy,4),
-        "per_class": per_class,
-        "confusion_matrix": conf,
-        "unmapped_columns": sorted(set(unmapped)),
-        "invalid_categories": badcat,
-        "rows": rows,                        # todos (mapeados + unmapped)
-        "unmapped_rows": unmapped_rows       # solo unmapped
-    }
-    return report
-
-# ---------- Pretty print stdout ----------
-def print_stdout(report):
-    print("=== MÉTRICAS (solo category; excluyendo sin GT) ===")
-    print(f"Evaluadas (con GT): {report['n_evaluated']}  |  Aciertos: {report['n_correct']}  |  Accuracy: {report['accuracy']:.4f}")
-    excl = len(report["unmapped_rows"])
-    total_items = len(report["rows"])
-    pct = (excl/total_items*100) if total_items else 0
-    print(f"Excluidas (sin GT): {excl} de {total_items}  ({pct:.1f}%)\n")
-
-    print("F1/Prec/Rec por clase:")
-    for lab, m in report["per_class"].items():
-        print(f"  - {lab:22s}  F1={m['f1']:.4f}  Prec={m['precision']:.4f}  Rec={m['recall']:.4f}  Soporte={m['support']}")
-
-    # matriz bonita
-    labels = ["identificador_directo","cuasi_identificador","atributo_sensible","no_sensible"]
-    conf = report["confusion_matrix"]
-
-    col_headers = ["true \\ pred"] + labels
-    data_rows = []
-    for t in labels:
-        row = [t] + [str(conf[t][p]) for p in labels]
-        data_rows.append(row)
-
-    widths = [0]*len(col_headers)
-    for i, h in enumerate(col_headers):
-        widths[i] = max(widths[i], len(h))
-    for row in data_rows:
-        for i, cell in enumerate(row):
-            widths[i] = max(widths[i], len(cell))
-
-    def sep(line_char="-", corner_char="+"):
-        return corner_char + corner_char.join(line_char*(w+2) for w in widths) + corner_char
-
-    def fmt_row(cells):
-        return "| " + " | ".join(c.ljust(w) for c, w in zip(cells, widths)) + " |"
-
-    print("\nMatriz de confusión (true x pred) — solo items con GT:")
-    print(sep())
-    print(fmt_row(col_headers))
-    print(sep("=","+"))
-    for r in data_rows:
-        print(fmt_row(r))
-        print(sep())
-
-    if report["unmapped_columns"]:
-        print("\n[INFO] Columnas sin ground truth (excluidas):", report["unmapped_columns"])
-    if report["invalid_categories"]:
-        print("\n[WARN] Categorías inválidas (normalizadas a 'no_sensible'):", report["invalid_categories"])
-
-# ---------- Exports ----------
-def export_rows_csv(rows, path):
-    with open(path, "w", newline="", encoding="utf-8") as f:
-        fieldnames = ["name_input","name_canonical","pred_category","gold_category",
-                      "risk_info","recommended_treatment_info","correct","in_eval"]
-        wr = csv.DictWriter(f, fieldnames=fieldnames)
-        wr.writeheader()
-        wr.writerows(rows)
-
-def export_metrics_csv(report, path):
-    with open(path, "w", newline="", encoding="utf-8") as f:
-        wr = csv.writer(f)
-        wr.writerow(["metric","label","value"])
-        wr.writerow(["n_items_total","all",len(report["rows"])])
-        wr.writerow(["n_excluded_unmapped","all",len(report["unmapped_rows"])])
-        wr.writerow(["n_evaluated","all",report["n_evaluated"]])
-        wr.writerow(["n_correct","all",report["n_correct"]])
-        wr.writerow(["accuracy","all",report["accuracy"]])
-        for lab, m in report["per_class"].items():
-            wr.writerow(["precision",lab,m["precision"]])
-            wr.writerow(["recall",lab,m["recall"]])
-            wr.writerow(["f1",lab,m["f1"]])
-            wr.writerow(["support",lab,m["support"]])
-
-# -------------------- CLI -----------------------
+# ---------- main ----------
 def main():
-    ap = argparse.ArgumentParser(description="Evalúa SOLO la categoría. Excluye items sin GT de las métricas.")
-    ap.add_argument("--canonical_csv", default=ENV_CANON_CSV, help="Ruta a canonical_entities.csv (por defecto CANONICAL_CSV del .env)")
-    ap.add_argument("--aliases_json", default=ENV_ALIASES_JSON, help="Ruta a aliases.json (por defecto ALIASES_JSON del .env)")
-    ap.add_argument("--predictions", default=ENV_PREDICTIONS, help="Ruta a predictions.json (por defecto OUT_PREDICTIONS del .env)")
-    ap.add_argument("--db_name", default=ENV_DB_NAME, help="Nombre de BD para prefijar outputs (por defecto DB_NAME del .env)")
-    ap.add_argument("--out_rows_csv", default=None, help="CSV con resultados fila a fila")
-    ap.add_argument("--out_metrics_csv", default=None, help="CSV con métricas")
-    ap.add_argument("--out_unmapped_csv", default=None, help="CSV con filas sin GT (excluidas de métricas)")
+    ap = argparse.ArgumentParser(description="Extrae columnas de MySQL y genera predictions.json llamando a Ollama.")
+    ap.add_argument("--host", default=ENV_HOST)
+    ap.add_argument("--port", type=int, default=ENV_PORT)
+    ap.add_argument("--user", default=ENV_USER)
+    ap.add_argument("--password", default=ENV_PASS)
+    ap.add_argument("--database", default=ENV_NAME, help="schema de MySQL (table_schema)")
+
+    ap.add_argument("--table_like", default=ENV_TABLE_LIKE, help="patrón LIKE para table_name")
+    ap.add_argument("--sample_rows", type=int, default=ENV_SAMPLE_ROWS, help="muestras por columna (máx)")
+    ap.add_argument("--batch_size", type=int, default=ENV_BATCH_SIZE, help="nº columnas por petición a LLM")
+
+    ap.add_argument("--model", default=ENV_MODEL)
+    ap.add_argument("--ollama_url", default=ENV_OLLAMA_URL)
+    ap.add_argument("--out_predictions", default=ENV_OUT_PRED)
+    ap.add_argument("--sleep_s", type=float, default=ENV_SLEEP_S, help="pausa entre peticiones")
     args = ap.parse_args()
 
-    canon = load_canonical(args.canonical_csv)
-    aliases = load_aliases(args.aliases_json)
-    alias_map = build_alias_map(canon, aliases)
-    report = evaluate_categories_only(args.predictions, canon, alias_map, exclude_unmapped=True)
+    print(f"[INFO] Conectando a MySQL {args.host}:{args.port} DB={args.database} con usuario '{args.user}'…")
 
-    # nombres auto si no se pasan y hay db_name
-    if args.db_name:
-        base = args.db_name.strip()
-        if not args.out_rows_csv:
-            args.out_rows_csv = f"{base}-resultados_fila_a_fila.csv"
-        if not args.out_metrics_csv:
-            args.out_metrics_csv = f"{base}-metricas.csv"
-        if not args.out_unmapped_csv:
-            args.out_unmapped_csv = f"{base}-unmapped.csv"
+    # conectar
+    conn = mysql.connector.connect(
+        host=args.host, port=args.port, user=args.user,
+        password=args.password, database=args.database
+    )
+    cur = conn.cursor(dictionary=True)
 
-    # Imprime siempre a stdout
-    print_stdout(report)
+    # 1) columnas (alias para claves en minúscula)
+    cur.execute("""
+        SELECT
+          TABLE_NAME   AS table_name,
+          COLUMN_NAME  AS column_name,
+          DATA_TYPE    AS data_type,
+          COLUMN_TYPE  AS column_type,
+          IS_NULLABLE  AS is_nullable
+        FROM information_schema.columns
+        WHERE table_schema = %s
+          AND table_name LIKE %s
+        ORDER BY TABLE_NAME, ORDINAL_POSITION
+    """, (args.database, args.table_like))
+    cols = cur.fetchall()
 
-    # CSVs opcionales
-    if args.out_rows_csv:
-        export_rows_csv(report["rows"], args.out_rows_csv)
-        print(f"\n[OK] Resultados fila a fila exportados en: {args.out_rows_csv}")
-    if args.out_metrics_csv:
-        export_metrics_csv(report, args.out_metrics_csv)
-        print(f"[OK] Métricas exportadas en: {args.out_metrics_csv}")
-    if args.out_unmapped_csv:
-        export_rows_csv(report["unmapped_rows"], args.out_unmapped_csv)
-        print(f"[OK] Unmapped exportadas en: {args.out_unmapped_csv}")
+    # 2) stats + muestras
+    cols_info = []
+    for c in cols:
+        # fallback por si alguna clave viene en MAYÚSCULAS
+        t   = c.get("table_name",  c.get("TABLE_NAME"))
+        col = c.get("column_name", c.get("COLUMN_NAME"))
+        dt  = c.get("data_type",   c.get("DATA_TYPE"))
+        ct  = c.get("column_type", c.get("COLUMN_TYPE"))
+        nul = c.get("is_nullable", c.get("IS_NULLABLE"))
+
+        # contar filas y nulls
+        cur.execute(f"SELECT COUNT(*) AS n, SUM(CASE WHEN `{col}` IS NULL THEN 1 ELSE 0 END) AS n_null FROM `{t}`")
+        r = cur.fetchone()
+        n_all = r["n"] or 0
+        n_null = r["n_null"] or 0
+
+        # count distinct (para demo)
+        try:
+            cur.execute(f"SELECT COUNT(DISTINCT `{col}`) AS n_dist FROM `{t}`")
+            r2 = cur.fetchone(); n_dist = r2["n_dist"] or 0
+        except Exception:
+            n_dist = None
+
+        # muestras (non-null)
+        samples = []
+        try:
+            cur.execute(f"SELECT `{col}` as v FROM `{t}` WHERE `{col}` IS NOT NULL LIMIT %s", (args.sample_rows,))
+            for rr in cur.fetchall():
+                samples.append(mask_value(rr["v"]))
+        except Exception:
+            pass
+
+        llm_type = map_mysql_type(dt, ct)
+
+        cols_info.append({
+            "table": t,
+            "name": col,
+            "mysql_data_type": dt,
+            "mysql_column_type": ct,
+            "llm_type": llm_type,
+            "is_nullable": nul,
+            "n_all": n_all,
+            "n_null": n_null,
+            "n_distinct": n_dist,
+            "samples": samples
+        })
+
+    cur.close(); conn.close()
+
+    # 3) construir prompts en batches y llamar a Ollama
+    all_items = []
+    SYSTEM_PROMPT = """Eres experto en GDPR. Clasifica las columnas en:
+- identificador_directo
+- cuasi_identificador
+- atributo_sensible
+- no_sensible
+
+Devuelve SOLO JSON con este esquema:
+{
+  "items": [
+    {"name":"string","category":"identificador_directo|cuasi_identificador|atributo_sensible|no_sensible","rationale":"string","confidence":0.0}
+  ]
+}
+"""
+
+    for batch in chunked(cols_info, args.batch_size):
+        lines = [SYSTEM_PROMPT, "Columnas:"]
+        for c in batch:
+            lines.append(f"- {c['name']} ({c['llm_type']})  -- tabla: {c['table']}")
+        lines.append("\nEvidencia:")
+        for c in batch:
+            null_pct = round((c['n_null']/c['n_all']*100), 2) if c['n_all'] else 0
+            ev = f"{c['name']}: distinct={c['n_distinct']}, null_pct={null_pct}, muestras={json.dumps(c['samples'], ensure_ascii=False)}"
+            lines.append(ev)
+
+        prompt = "\n".join(lines)
+
+        payload = {"model": args.model, "prompt": prompt, "stream": False}
+        resp = requests.post(args.ollama_url, json=payload, timeout=180)
+        resp.raise_for_status()
+        txt = resp.json().get("response", "").strip()
+
+        # intentar parsear el JSON que devuelve el LLM
+        items = []
+        try:
+            j = json.loads(txt)
+            items = j.get("items", [])
+        except Exception:
+            m = re.search(r"\{[\s\S]*\}", txt)
+            if m:
+                j = json.loads(m.group(0))
+                items = j.get("items", [])
+            else:
+                items = []
+
+        for it in items:
+            name = it.get("name","")
+            cat  = it.get("category","")
+            rat  = it.get("rationale","")
+            conf = it.get("confidence", None)
+            all_items.append({
+                "name": name,
+                "category": cat,
+                "rationale": rat,
+                "confidence": conf
+            })
+
+        time.sleep(args.sleep_s)
+
+    # 4) escribir predictions.json
+    with open(args.out_predictions, "w", encoding="utf-8") as f:
+        json.dump({"items": all_items}, f, ensure_ascii=False, indent=2)
+
+    print(f"[OK] Generado {args.out_predictions} con {len(all_items)} items.")
 
 if __name__ == "__main__":
     main()
+
+
 
 
 # EJEMPLO DE USO
