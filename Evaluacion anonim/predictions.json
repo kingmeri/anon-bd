@@ -1,36 +1,526 @@
 {
   "items": [
     {
-      "name": "dni",
+      "name": "id_actor",
       "category": "identificador_directo",
-      "risk": "alto",
-      "recommended_treatment": "cifrado de datos",
-      "rationale": "Es un identificador único y personalizable para cada individuo",
-      "confidence": 0.99
+      "rationale": "Es el identificador único de cada actor y almacena un identificador int.",
+      "confidence": 0.0
     },
     {
-      "name": "edad",
+      "name": "nombre",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "El nombre es distinto en diferentes registros, pero puede contener información sensible como los nombres de las personas.",
+      "confidence": 0.0
+    },
+    {
+      "name": "apellidos",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "Los apellidos son similares en diferentes registros, pero pueden contener información sensible como la información familiar o personal.",
+      "confidence": 0.0
+    },
+    {
+      "name": "ultima_actualizacion",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "La fecha de última actualización puede contener información sensible como fechas importantes o eventos significativos.",
+      "confidence": 0.0
+    },
+    {
+      "name": "id_almacen",
+      "category": "identificador_directo",
+      "rationale": "Es el identificador único del almacen y almacena un identificador int.",
+      "confidence": 0.0
+    },
+    {
+      "name": "id_empleado_jefe",
+      "category": "identificador_directo",
+      "rationale": "Es el identificador único del empleado jefe y almacena un identificador int.",
+      "confidence": 0.0
+    },
+    {
+      "name": "id_direccion",
+      "category": "identificador_directo",
+      "rationale": "Es el identificador único de la dirección y almacena un identificador int.",
+      "confidence": 0.0
+    },
+    {
+      "name": "ultima_actualizacion",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "La fecha de última actualización puede contener información sensible como fechas importantes o eventos significativos.",
+      "confidence": 0.0
+    },
+    {
+      "name": "id_alquiler",
+      "category": "identificador_directo",
+      "rationale": "Es el identificador único del alquiler y almacena un identificador int.",
+      "confidence": 0.0
+    },
+    {
+      "name": "fecha_alquiler",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "La fecha de alquiler puede contener información sensible como fechas importantes o eventos significativos.",
+      "confidence": 0.0
+    },
+    {
+      "name": "id_inventario",
+      "category": "identificador_directo",
+      "rationale": "Es el identificador único del inventario y almacena un identificador int.",
+      "confidence": 0.0
+    },
+    {
+      "name": "id_cliente",
+      "category": "identificador_directo",
+      "rationale": "Es el identificador único del cliente y almacena un identificador int.",
+      "confidence": 0.0
+    },
+    {
+      "name": "fecha_devolucion",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "La fecha de devolución puede contener información sensible como fechas importantes o eventos significativos.",
+      "confidence": 0.0
+    },
+    {
+      "name": "id_empleado",
+      "category": "identificador_directo",
+      "rationale": "Es el identificador único del empleado y almacena un identificador int.",
+      "confidence": 0.0
+    },
+    {
+      "name": "ultima_actualizacion",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "La fecha de última actualización puede contener información sensible como fechas importantes o eventos significativos.",
+      "confidence": 0.0
+    },
+    {
+      "name": "id_categoria",
+      "category": "identificador_directo",
+      "rationale": "Es el identificador único de la categoría y almacena un identificador int.",
+      "confidence": 0.0
+    },
+    {
+      "name": "nombre",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "El nombre es distinto en diferentes registros, pero puede contener información sensible como los nombres de las personas o lugares.",
+      "confidence": 0.0
+    },
+    {
+      "name": "ultima_actualizacion",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "La fecha de última actualización puede contener información sensible como fechas importantes o eventos significativos.",
+      "confidence": 0.0
+    },
+    {
+      "name": "id_ciudad",
+      "category": "identificador_directo",
+      "rationale": "Es el identificador único de la ciudad y almacena un identificador int.",
+      "confidence": 0.0
+    },
+    {
+      "name": "nombre",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "El nombre es distinto en diferentes registros, pero puede contener información sensible como los nombres de las personas o lugares.",
+      "confidence": 0.0
+    },
+    {
+      "name": "id_pais",
+      "category": "identificador_directo",
+      "rationale": "La columna id_pais es un identificador único para cada país.",
+      "confidence": 1.0
+    },
+    {
+      "name": "ultima_actualizacion",
       "category": "cuasi_identificador",
-      "risk": "bajo",
-      "recommended_treatment": "no cifrado de datos",
-      "rationale": "No es un identificador directo, pero puede ser utilizado para identificar a una persona",
-      "confidence": 0.85
+      "rationale": "La columna ultima_actualizacion contiene fechas de actualización con valores que contienen información sensible.",
+      "confidence": 0.8
     },
     {
-      "name": "ciudad",
+      "name": "id_cliente",
+      "category": "identificador_directo",
+      "rationale": "La columna id_cliente es un identificador único para cada cliente.",
+      "confidence": 1.0
+    },
+    {
+      "name": "id_almacen",
       "category": "cuasi_identificador",
-      "risk": "bajo",
-      "recommended_treatment": "no cifrado de datos",
-      "rationale": "No es un identificador directo, pero puede ser utilizado para identificar a una persona en una región específica",
-      "confidence": 0.78
+      "rationale": "La columna id_almacen contiene valores que podrían ser considerados como información sensible.",
+      "confidence": 0.7
     },
     {
-      "name": "diagnosticos_medicos",
+      "name": "nombre",
       "category": "atributo_sensible",
-      "risk": "muy_alto",
-      "recommended_treatment": "cifrado de datos y gestión de acceso estricto",
-      "rationale": "Es información sensible que puede afectar la salud y el bienestar de una persona",
-      "confidence": 0.95
+      "rationale": "La columna nombre contiene nombres personales.",
+      "confidence": 1.0
+    },
+    {
+      "name": "apellidos",
+      "category": "atributo_sensible",
+      "rationale": "La columna apellidos contiene apellidos personales.",
+      "confidence": 1.0
+    },
+    {
+      "name": "email",
+      "category": "atributo_sensible",
+      "rationale": "La columna email contiene correos electrónicos personales.",
+      "confidence": 1.0
+    },
+    {
+      "name": "id_direccion",
+      "category": "identificador_directo",
+      "rationale": "La columna id_direccion es un identificador único para cada dirección.",
+      "confidence": 1.0
+    },
+    {
+      "name": "activo",
+      "category": "cuasi_identificador",
+      "rationale": "La columna activo contiene valores que podrían ser considerados como información sensible.",
+      "confidence": 0.9
+    },
+    {
+      "name": "fecha_creacion",
+      "category": "cuasi_identificador",
+      "rationale": "La columna fecha_creacion contiene fechas de creación con valores que contienen información sensible.",
+      "confidence": 0.8
+    },
+    {
+      "name": "ultima_actualizacion",
+      "category": "cuasi_identificador",
+      "rationale": "La columna ultima_actualizacion contiene fechas de actualización con valores que contienen información sensible.",
+      "confidence": 0.9
+    },
+    {
+      "name": "id_direccion",
+      "category": "identificador_directo",
+      "rationale": "La columna id_direccion es un identificador único para cada dirección.",
+      "confidence": 1.0
+    },
+    {
+      "name": "direccion2",
+      "category": "atributo_sensible",
+      "rationale": "La columna direccion2 contiene información sensible sobre las direcciones.",
+      "confidence": 1.0
+    },
+    {
+      "name": "distrito",
+      "category": "cuasi_identificador",
+      "rationale": "La columna distrito contiene valores que podrían ser considerados como información sensible.",
+      "confidence": 0.8
+    },
+    {
+      "name": "id_ciudad",
+      "category": "identificador_directo",
+      "rationale": "La columna id_ciudad es un identificador único para cada ciudad.",
+      "confidence": 1.0
+    },
+    {
+      "name": "codigo_postal",
+      "category": "cuasi_identificador",
+      "rationale": "La columna codigo_postal contiene valores que podrían ser considerados como información sensible.",
+      "confidence": 0.9
+    },
+    {
+      "name": "telefono",
+      "category": "atributo_sensible",
+      "rationale": "La columna telefono contiene números de teléfono personales.",
+      "confidence": 1.0
+    },
+    {
+      "name": "ultima_actualizacion",
+      "category": "cuasi_identificador",
+      "rationale": "La columna ultima_actualizacion contiene fechas de actualización con valores que contienen información sensible.",
+      "confidence": 0.9
+    },
+    {
+      "name": "id_empleado",
+      "category": "identificador_directo",
+      "rationale": "La columna id_empleado es un identificador único para cada empleado.",
+      "confidence": 1.0
+    },
+    {
+      "name": "nombre",
+      "category": "identificador_directo|cuasi_identificador|atributo_sensible|no_sensible",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "apellidos",
+      "category": "identificador_directo|cuasi_identificador|atributo_sensible|no_sensible",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "id_direccion",
+      "category": "int",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "imagen",
+      "category": "no_sensible",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "email",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "id_almacen",
+      "category": "int|no_sensible",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "activo",
+      "category": "booleano",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "username",
+      "category": "identificador_directo|cuasi_identificador",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "password",
+      "category": "no_sensible",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "ultima_actualizacion",
+      "category": "datetime|cuasi_identificador",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "film_id",
+      "category": "int",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "title",
+      "category": "string|no_sensible",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "description",
+      "category": "string|no_sensible",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "id_idioma",
+      "category": "int",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "nombre",
+      "category": "string|cuasi_identificador",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "ultima_actualizacion",
+      "category": "datetime",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "id_inventario",
+      "category": "int|no_sensible",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "id_pelicula",
+      "category": "int",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "id_almacen",
+      "category": "int|no_sensible",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "ultima_actualizacion",
+      "category": "datetime",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "name": "id_pago",
+      "category": "identificador_directo|cuasi_identificador|atributo_sensible|no_sensible",
+      "rationale": "id de pago único",
+      "confidence": 1.0
+    },
+    {
+      "name": "id_cliente",
+      "category": "identificador_directo|cuasi_identificador|atributo_sensible|no_sensible",
+      "rationale": "id del cliente",
+      "confidence": 1.0
+    },
+    {
+      "name": "id_empleado",
+      "category": "identificador_directo|cuasi_identificador|atributo_sensible|no_sensible",
+      "rationale": "id del empleado",
+      "confidence": 1.0
+    },
+    {
+      "name": "id_alquiler",
+      "category": "identificador_directo|cuasi_identificador|atributo_sensible|no_sensible",
+      "rationale": "id de alquiler",
+      "confidence": 1.0
+    },
+    {
+      "name": "total",
+      "category": "cuasi_identificador|no_sensible",
+      "rationale": "Total del pago, sin identificar a la persona",
+      "confidence": 1.0
+    },
+    {
+      "name": "fecha_pago",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "Fecha de pago con datos sensibles eliminados (teléfono)",
+      "confidence": 1.0
+    },
+    {
+      "name": "ultima_actualizacion",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "Fecha de última actualización con datos sensibles eliminados (teléfono)",
+      "confidence": 1.0
+    },
+    {
+      "name": "id_pais",
+      "category": "identificador_directo|no_sensible",
+      "rationale": "Id del país, no sensible",
+      "confidence": 1.0
+    },
+    {
+      "name": "nombre",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "Nombre del país con datos sensibles eliminados (dirección)",
+      "confidence": 1.0
+    },
+    {
+      "name": "id_pelicula",
+      "category": "identificador_directo|no_sensible",
+      "rationale": "Id de la película, no sensible",
+      "confidence": 1.0
+    },
+    {
+      "name": "titulo",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "Título de la película con datos sensibles eliminados (director)",
+      "confidence": 1.0
+    },
+    {
+      "name": "descripcion",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "Descripción de la película con datos sensibles eliminados (trama)",
+      "confidence": 1.0
+    },
+    {
+      "name": "anyo_lanzamiento",
+      "category": "identificador_directo|no_sensible",
+      "rationale": "Año de lanzamiento de la película, no sensible",
+      "confidence": 1.0
+    },
+    {
+      "name": "id_idioma",
+      "category": "identificador_directo|no_sensible",
+      "rationale": "Id del idioma, no sensible",
+      "confidence": 1.0
+    },
+    {
+      "name": "id_idioma_original",
+      "category": "cuasi_identificador",
+      "rationale": "Id del idioma original con datos sensibles eliminados (idioma de origen)",
+      "confidence": 0.5
+    },
+    {
+      "name": "duracion_alquiler",
+      "category": "cuasi_identificador|no_sensible",
+      "rationale": "Duración del alquiler, no sensible",
+      "confidence": 1.0
+    },
+    {
+      "name": "rental_rate",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "Tarifa de alquiler con datos sensibles eliminados (tarifa por día)",
+      "confidence": 1.0
+    },
+    {
+      "name": "duracion",
+      "category": "cuasi_identificador|no_sensible",
+      "rationale": "Duración de la película, no sensible",
+      "confidence": 1.0
+    },
+    {
+      "name": "replacement_cost",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "Costo de reemplazo con datos sensibles eliminados (costo por daño)",
+      "confidence": 1.0
+    },
+    {
+      "name": "clasificacion",
+      "category": "identificador_directo",
+      "rationale": "La columna clasificacion contiene identificadores directos de las películas, ya que cada valor es único y se refiere a una categoría específica.",
+      "confidence": 0.9
+    },
+    {
+      "name": "caracteristicas_especiales",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "La columna caracteristicas_especiales contiene valores que podrían considerarse sensibles, ya que se refieren a características específicas de las películas, como 'Deleted Scenes' o 'Behind the Scenes'. Sin embargo, estos valores no contienen información personal identificable (PII). Por otro lado, algunos valores pueden ser cuasi-identificadores, como '1', que podrían identificar a un actor en particular.",
+      "confidence": 0.8
+    },
+    {
+      "name": "ultima_actualizacion",
+      "category": "cuasi_identificador|atributo_sensible|no_sensible",
+      "rationale": "La columna ultima_actualizacion contiene valores que podrían considerarse sensibles, ya que se refieren a la fecha de última actualización de la película o del actor. Sin embargo, estos valores no contienen información personal identificable (PII). Por otro lado, algunos valores pueden ser cuasi-identificadores, como '<MASK:TEL>', que podrían identificar una llamada telefónica específica.",
+      "confidence": 0.9
+    },
+    {
+      "name": "id_actor",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "La columna id_actor contiene valores que podrían considerarse cuasi-identificadores, ya que se refieren a identificadores de actores. Sin embargo, estos valores no contienen información personal identificable (PII). Por otro lado, algunos valores pueden ser atributos sensibles, como '40', que podría identificar a un actor específico.",
+      "confidence": 0.8
+    },
+    {
+      "name": "id_pelicula",
+      "category": "identificador_directo|cuasi_identificador",
+      "rationale": "La columna id_pelicula contiene identificadores directos de las películas, ya que cada valor es único y se refiere a una película específica. Por otro lado, algunos valores pueden ser cuasi-identificadores, como '1', que podría identificar a una película en particular.",
+      "confidence": 0.9
+    },
+    {
+      "name": "ultima_actualizacion",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "La columna ultima_actualizacion contiene valores que podrían considerarse cuasi-identificadores, ya que se refieren a fechas de última actualización. Sin embargo, estos valores no contienen información personal identificable (PII). Por otro lado, algunos valores pueden ser atributos sensibles, como '<MASK:TEL>', que podría identificar una llamada telefónica específica.",
+      "confidence": 0.8
+    },
+    {
+      "name": "id_pelicula",
+      "category": "identificador_directo|cuasi_identificador",
+      "rationale": "La columna id_pelicula contiene identificadores directos de las películas, ya que cada valor es único y se refiere a una película específica. Por otro lado, algunos valores pueden ser cuasi-identificadores, como '19', que podría identificar a una película en particular.",
+      "confidence": 0.9
+    },
+    {
+      "name": "id_categoria",
+      "category": "identificador_directo|cuasi_identificador",
+      "rationale": "La columna id_categoria contiene identificadores directos de las categorías, ya que cada valor es único y se refiere a una categoría específica. Por otro lado, algunos valores pueden ser cuasi-identificadores, como '1', que podría identificar a una categoría en particular.",
+      "confidence": 0.9
+    },
+    {
+      "name": "ultima_actualizacion",
+      "category": "cuasi_identificador|atributo_sensible",
+      "rationale": "La columna ultima_actualizacion contiene valores que podrían considerarse cuasi-identificadores, ya que se refieren a fechas de última actualización. Sin embargo, estos valores no contienen información personal identificable (PII). Por otro lado, algunos valores pueden ser atributos sensibles, como '<MASK:TEL>', que podría identificar una llamada telefónica específica.",
+      "confidence": 0.8
     }
   ]
 }
