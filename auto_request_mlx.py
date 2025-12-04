@@ -323,45 +323,56 @@ def main():
                 scope="core",
                 domain_hint=domain_hint,
                 n_defs=1,
-                n_ejemplos=2,   # antes 3
+                n_ejemplos=2,   # más compacto
                 n_casos_borde=1,
                 n_dominios=1,
-                n_max_total=6,  # un poco más compacto
+                n_max_total=6,
             )
 
             context_block = build_context_block(
                 ctx_chunks,
-                max_chunks=4,   # antes 5
+                max_chunks=4,
                 max_chars_per_chunk=1000,
-            )
-
-
-            context_block = build_context_block(
-                ctx_chunks,
-                max_chunks=5,
-                max_chars_per_chunk=1200,
             )
 
             lines.append("Tienes acceso al siguiente CONTEXTO relevante sobre anonimización y clasificación de columnas:")
             lines.append("[CONTEXTO]")
             lines.append(context_block)
 
-        # --- resto de prompt, como antes ---
-        lines.append(f"Tabla: {t} (filas ~ {info['row_count']})")
-        lines.append("Esquema:")
-        for c in info["columns"]:
-            marks = []
-            if c["is_pk"]: marks.append("PK")
-            if c["is_fk"]: marks.append("FK")
-            mark = f" [{' ,'.join(marks)}]" if marks else ""
-            lines.append(f"- {c['name']} ({c['llm_type']} | {c['mysql_column_type']}){mark}")
+        # --- Esquema de la tabla y recordatorio de N columnas ---
+        num_cols = len(info["columns"])
 
+        lines.append(f"Tabla: {t} (filas ~ {info['row_count']})")
+        lines.append("Esquema (columnas en orden):")
+        for idx, c in enumerate(info["columns"], start=1):
+            marks = []
+            if c["is_pk"]:
+                marks.append("PK")
+            if c["is_fk"]:
+                marks.append("FK")
+            mark = f" [{' ,'.join(marks)}]" if marks else ""
+            lines.append(f"{idx}. {c['name']} ({c['llm_type']} | {c['mysql_column_type']}){mark}")
+
+        # Aquí le dejamos clarísimo cuántas columnas hay y cómo mapearlas a items[i]
+        first_col_name = info["columns"][0]["name"] if info["columns"] else "columna_1"
+        lines.append(
+            f"\nEn esta tabla hay EXACTAMENTE {num_cols} columnas. "
+            f"El array JSON 'items' debe contener EXACTAMENTE {num_cols} elementos, "
+            f"ni uno más ni uno menos. El item 1 corresponde a la columna 1 ({first_col_name}), "
+            f"el item 2 a la columna 2, etc."
+        )
+
+        # Evidencia por columna (igual que antes)
         lines.append("\nEvidencia por columna:")
         for c in info["columns"]:
-            null_pct = round((c['n_null']/c['n_all']*100), 2) if c['n_all'] else 0
-            lines.append(f"{c['name']}: distinct={c['n_distinct']}, null_pct={null_pct}, muestras={json.dumps(c['samples'], ensure_ascii=False)}")
+            null_pct = round((c['n_null'] / c['n_all'] * 100), 2) if c['n_all'] else 0
+            lines.append(
+                f"{c['name']}: distinct={c['n_distinct']}, "
+                f"null_pct={null_pct}, muestras={json.dumps(c['samples'], ensure_ascii=False)}"
+            )
 
         prompt = "\n".join(lines)
+
 
         try:
             print(prompt)
