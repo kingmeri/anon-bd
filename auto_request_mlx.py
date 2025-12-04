@@ -272,25 +272,38 @@ def main():
     # 3) Prompt por tabla y llamada al LLM
 
     SYSTEM_PROMPT = """Eres experto en anonimización (GDPR, LOPDGDD y guías de la AEPD).
-Clasifica CADA columna en EXACTAMENTE UNA categoría:
-- identificador_directo
-- cuasi_identificador
-- atributo_sensible
-- no_sensible
 
-Devuelve SOLO JSON con:
-{
-  "items": [
+    Tu tarea es: para CADA columna listada en la sección 'Esquema:', decidir
+    EXACTAMENTE UNA categoría entre:
+    - identificador_directo
+    - cuasi_identificador
+    - atributo_sensible
+    - no_sensible
+
+    Devuelve SOLO JSON, SIN texto adicional, con este formato EXACTO:
+
     {
-      "name":"string",
-      "category":"identificador_directo|cuasi_identificador|atributo_sensible|no_sensible",
-      "rationale":"string",
-      "confidence":0.0
+    "items": [
+        {
+        "category": "identificador_directo|cuasi_identificador|atributo_sensible|no_sensible",
+        "rationale": "string breve (máx 1 frase)",
+        "confidence": 0.0
+        }
+    ]
     }
-  ]
-}
 
-"""
+    REGLAS IMPORTANTES:
+    - Debe haber UN item por cada columna listada en 'Esquema:', en el MISMO orden.
+    Es decir:
+    - items[0] = primera columna del Esquema
+    - items[1] = segunda columna del Esquema
+    - etc.
+    - NO incluyas ningún campo 'name' ni otros campos distintos a:
+    category, rationale, confidence.
+    - NO expliques nada fuera del JSON.
+    """
+
+
 
     all_items = []
 
@@ -307,14 +320,21 @@ Devuelve SOLO JSON con:
 
             ctx_chunks = rag_client.retrieve_mixed_context(
                 query,
-                scope="core",         # no traemos los legales salvo que quieras
+                scope="core",
                 domain_hint=domain_hint,
                 n_defs=1,
-                n_ejemplos=3,
+                n_ejemplos=2,   # antes 3
                 n_casos_borde=1,
                 n_dominios=1,
-                n_max_total=8,
+                n_max_total=6,  # un poco más compacto
             )
+
+            context_block = build_context_block(
+                ctx_chunks,
+                max_chunks=4,   # antes 5
+                max_chars_per_chunk=1000,
+            )
+
 
             context_block = build_context_block(
                 ctx_chunks,
@@ -378,7 +398,7 @@ Devuelve SOLO JSON con:
             continue
 
         # parseo robusto
-        i        # ---------- parseo robusto del JSON ----------
+                # ---------- parseo robusto del JSON ----------
         items = []
         cols_this_table = info["columns"]
 
@@ -391,9 +411,9 @@ Devuelve SOLO JSON con:
 
         # 2) Si falla o items viene vacío, intentamos rescatar objetos sueltos { ... }
         if not items:
-            # Buscamos todos los bloques {...} que contengan "name" y "category"
+            # Buscamos todos los bloques {...} que contengan al menos "category"
             obj_texts = re.findall(
-                r'\{[^{}]*"name"\s*:\s*".*?"[^{}]*"category"\s*:\s*".*?"[^{}]*\}',
+                r'\{[^{}]*"category"\s*:\s*".*?"[^{}]*\}',
                 txt,
                 flags=re.S
             )
@@ -419,7 +439,7 @@ Devuelve SOLO JSON con:
                     "confidence": None,
                 })
         else:
-            # Tenemos items. Usamos SOLO el orden, ignoramos 'name' del modelo.
+            # Tenemos items. Usamos SOLO el orden, emparejando columnas ↔ items por índice.
             n_cols = len(cols_this_table)
             n_items = len(items)
             n_common = min(n_cols, n_items)
@@ -428,7 +448,7 @@ Devuelve SOLO JSON con:
             for c, it in zip(cols_this_table[:n_common], items[:n_common]):
                 all_items.append({
                     "table": t,
-                    "name": c["name"],  # usamos SIEMPRE el nombre real de la columna
+                    "name": c["name"],  # siempre el nombre real de la columna
                     "category": it.get("category", ""),
                     "rationale": it.get("rationale", ""),
                     "confidence": it.get("confidence", None),
@@ -446,6 +466,7 @@ Devuelve SOLO JSON con:
                         "confidence": None,
                     })
             # Si hay MÁS items que columnas, los ignoramos (no tenemos a quién asignarlos)
+
 
         time.sleep(args.sleep_s)
 
