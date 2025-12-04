@@ -332,7 +332,7 @@ def main():
             context_block = build_context_block(
                 ctx_chunks,
                 max_chunks=4,
-                max_chars_per_chunk=1000,
+                max_chars_per_chunk=500,
             )
 
             lines.append("Tienes acceso al siguiente CONTEXTO relevante sobre anonimización y clasificación de columnas:")
