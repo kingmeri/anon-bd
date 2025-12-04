@@ -1,0 +1,82 @@
+{
+  "items": [
+    {
+      "name": "id_estudiante",
+      "category": "identificador_directo",
+      "rationale": "Es un identificador interno único por estudiante en el sistema académico, permite seguir a la misma persona en distintas tablas.",
+      "confidence": 0.95
+    },
+    {
+      "name": "nombre_completo",
+      "category": "identificador_directo",
+      "rationale": "El nombre y apellidos completos permiten identificar de forma directa y unívoca a la persona.",
+      "confidence": 0.98
+    },
+    {
+      "name": "fecha_nacimiento",
+      "category": "cuasi_identificador",
+      "rationale": "La fecha de nacimiento es un cuasi-identificador clásico, muy informativo cuando se combina con otros atributos.",
+      "confidence": 0.97
+    },
+    {
+      "name": "sexo",
+      "category": "cuasi_identificador",
+      "rationale": "El sexo o género es un dato demográfico que no identifica por sí solo, pero ayuda a reidentificar al combinarse con otros campos.",
+      "confidence": 0.96
+    },
+    {
+      "name": "edad",
+      "category": "cuasi_identificador",
+      "rationale": "La edad es un atributo demográfico que contribuye a perfilar a la persona cuando se combina con otros datos.",
+      "confidence": 0.97
+    },
+    {
+      "name": "cp",
+      "category": "cuasi_identificador",
+      "rationale": "El código postal aporta localización relativamente precisa y es un cuasi-identificador típico en anonimización.",
+      "confidence": 0.98
+    },
+    {
+      "name": "ciudad",
+      "category": "cuasi_identificador",
+      "rationale": "La ciudad de residencia es un dato de localización que, combinado con otros, ayuda a reducir el grupo de posibles personas.",
+      "confidence": 0.96
+    },
+    {
+      "name": "nivel_educativo",
+      "category": "cuasi_identificador",
+      "rationale": "El nivel educativo describe características personales relevantes y, junto con otros campos, contribuye a la reidentificación.",
+      "confidence": 0.95
+    },
+    {
+      "name": "situacion_laboral",
+      "category": "cuasi_identificador",
+      "rationale": "La situación laboral es un atributo socioeconómico que no identifica por sí solo, pero perfila a la persona.",
+      "confidence": 0.94
+    },
+    {
+      "name": "salario_mensual",
+      "category": "atributo_sensible",
+      "rationale": "El salario es un dato económico individual considerado especialmente sensible por su carácter intrusivo.",
+      "confidence": 0.99
+    },
+    {
+      "name": "id_matricula",
+      "category": "no_sensible",
+      "rationale": "Es un identificador técnico de la matrícula, asociado al registro de curso más que directamente a la identidad de la persona.",
+      "confidence": 0.82
+    },
+    {
+      "name": "id_estudiante",
+      "category": "identificador_directo",
+      "rationale": "En esta tabla actúa como clave foránea que referencia al identificador único de un estudiante, enlazando la matrícula con una persona concreta.",
+      "confidence": 0.9
+    },
+    {
+      "name": "curso",
+      "category": "no_sensible",
+      "rationale": "El nombre del curso describe una actividad formativa y no identifica a la persona ni contiene información especialmente sensible.",
+      "confidence": 0.9
+    }
+  ]
+}

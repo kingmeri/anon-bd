@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "table": "matricula",
+      "name": "id_matricula",
+      "category": "identificador_directo",
+      "rationale": "Identificador interno único por matrícula; permite seguir a la misma matrícula en distintos registros.",
+      "confidence": 1.0
+    },
+    {
+      "table": "matricula",
+      "name": "id_persona",
+      "category": "cuasi_identificador",
+      "rationale": "Identificador técnico que se refiere a la persona; por ejemplo, un ID numérico.",
+      "confidence": 0.95
+    },
+    {
+      "table": "matricula",
+      "name": "curso",
+      "category": "cuasi_identificador",
+      "rationale": "Nombre del curso o acción formativa; no describe una acción específica de la persona.",
+      "confidence": 0.9
+    },
+    {
+      "table": "matricula",
+      "name": "familia_profesional",
+      "category": "cuasi_identificador",
+      "rationale": "Nombre de la familia de profesiones (acción o acción formativa); puede ayudar a reducir la granularización.",
+      "confidence": 0.95
+    },
+    {
+      "table": "matricula",
+      "name": "modalidad",
+      "category": "cuasi_identificador",
+      "rationale": "Nombre de la modalidad (online, mixta, etc.); describe la forma en que se ofrece el curso.",
+      "confidence": 0.9
+    },
+    {
+      "table": "matricula",
+      "name": "fecha_matricula",
+      "category": "identificador_directo",
+      "rationale": "Fecha de la matrícula; identificador granular que describe un evento concreto.",
+      "confidence": 1.0
+    }
+  ]
+}

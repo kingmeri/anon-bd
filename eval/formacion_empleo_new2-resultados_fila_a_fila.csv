@@ -1,0 +1,34 @@
+name_input,name_canonical,pred_category,gold_category,risk_info,recommended_treatment_info,correct,in_eval
+id_matricula,id_pedido,identificador_directo,no_sensible,muy_alto,,False,True
+id_persona,id_pedido,identificador_directo,no_sensible,muy_alto,,False,True
+curso,,no_sensible,,bajo,,,False
+familia_profesional,,no_sensible,,bajo,,,False
+modalidad,,no_sensible,,bajo,,,False
+fecha_matricula,,no_sensible,,bajo,,,False
+id_persona,id_pedido,identificador_directo,no_sensible,muy_alto,string,False,True
+dni,DNI,identificador_directo,identificador_directo,muy_alto,string,True,True
+email,Correo electrónico,identificador_directo,identificador_directo,muy_alto,string,True,True
+telefono,Teléfono,identificador_directo,identificador_directo,muy_alto,string,True,True
+fecha_nacimiento,Fecha de nacimiento,cuasi_identificador,cuasi_identificador,bajo,string,True,True
+sexo,Sexo o género,cuasi_identificador,cuasi_identificador,bajo,string,True,True
+cp,Código postal,cuasi_identificador,cuasi_identificador,bajo,string,True,True
+ciudad,Ciudad,cuasi_identificador,cuasi_identificador,bajo,string,True,True
+provincia,Provincia,cuasi_identificador,cuasi_identificador,bajo,string,True,True
+ccaa,Comunidad autónoma,cuasi_identificador,cuasi_identificador,bajo,string,True,True
+pais,País,cuasi_identificador,cuasi_identificador,bajo,string,True,True
+nivel_estudios,Educación,cuasi_identificador,cuasi_identificador,bajo,string,True,True
+situacion_laboral,,cuasi_identificador,,bajo,string,,False
+ingresos_hogar,Ingresos,atributo_sensible,atributo_sensible,alto,string,True,True
+tamano_hogar,,no_sensible,,bajo,string,,False
+consentimiento_contacto,,no_sensible,,bajo,string,,False
+created_at,fecha registro,no_sensible,no_sensible,bajo,string,True,True
+id_practica,id_pedido,identificador_directo,no_sensible,muy_alto,eliminar,False,True
+id_persona,id_pedido,identificador_directo,no_sensible,muy_alto,eliminar,False,True
+salario_mensual,Salario,no_sensible,atributo_sensible,bajo,agrupar,False,True
+duracion_meses,,no_sensible,,bajo,agrupar,,False
+empresa,,no_sensible,,bajo,agrupar,,False
+sector,,no_sensible,,bajo,agrupar,,False
+ciudad_puesto,Ciudad,no_sensible,cuasi_identificador,bajo,agrupar,False,True
+provincia_puesto,Provincia,no_sensible,cuasi_identificador,bajo,agrupar,False,True
+ccaa_puesto,Comunidad autónoma,no_sensible,cuasi_identificador,bajo,agrupar,False,True
+pais_puesto,País,no_sensible,cuasi_identificador,bajo,agrupar,False,True

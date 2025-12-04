@@ -1,0 +1,63 @@
+Entidad,Tipo
+DNI,Identificador directo
+NIE,Identificador directo
+NIF,Identificador directo
+Pasaporte,Identificador directo
+Número de Seguridad Social,Identificador directo
+IBAN,Identificador directo
+Número de cuenta bancaria,Identificador directo
+Número de tarjeta crédito,Identificador directo
+Número de tarjeta débito,Identificador directo
+Correo electrónico,Identificador directo
+Teléfono,Identificador directo
+Matrícula de vehículo,Identificador directo
+Nombre y apellidos,Identificador directo
+Nombre de usuario,Identificador directo
+Fecha de nacimiento,Cuasi-identificador
+Edad,Cuasi-identificador
+Año de nacimiento,Cuasi-identificador
+Código postal,Cuasi-identificador
+Ciudad,Cuasi-identificador
+Provincia,Cuasi-identificador
+Comunidad autónoma,Cuasi-identificador
+País,Cuasi-identificador
+Sexo o género,Cuasi-identificador
+Educación,Cuasi-identificador
+Diagnósticos médicos,Atributo sensible
+Enfermedades,Atributo sensible
+Historial médico,Atributo sensible
+Tratamientos,Atributo sensible
+Medicación,Atributo sensible
+Discapacidad,Atributo sensible
+Embarazo,Atributo sensible
+Fertilidad,Atributo sensible
+Aborto,Atributo sensible
+VIH,Atributo sensible
+ETS,Atributo sensible
+Otras enfermedades estigmatizantes,Atributo sensible
+Consumo de alcohol,Atributo sensible
+Consumo de drogas,Atributo sensible
+Orientación sexual,Atributo sensible
+Vida sexual,Atributo sensible
+Creencias religiosas,Atributo sensible
+Opiniones políticas,Atributo sensible
+Afiliación política,Atributo sensible
+Afiliación sindical,Atributo sensible
+Antecedentes penales,Atributo sensible
+Sanciones,Atributo sensible
+Ingresos,Atributo sensible
+Salario,Atributo sensible
+Deudas,Atributo sensible
+Solvencia,Atributo sensible
+Scoring crediticio,Atributo sensible
+Prestaciones sociales,Atributo sensible
+id_pedido,No sensible
+sku,No sensible
+categoría producto,No sensible
+color producto,No sensible
+fecha registro,No sensible
+estado envío,No sensible
+país producto,No sensible
+cantidad,No sensible
+precio producto,No sensible
+número factura empresa,No sensible

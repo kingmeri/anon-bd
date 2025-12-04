@@ -1,0 +1,29 @@
+name_input,name_canonical,pred_category,gold_category,risk_info,recommended_treatment_info,correct,in_eval
+id_matricula,id_pedido,no_sensible,no_sensible,alto|muy_alto|muy_alto|muy_bajo,encryptar|agregar_puntos_separadores|no_transformar|no_transformar,True,True
+id_persona,id_pedido,no_sensible,no_sensible,alto|muy_alto|muy_bajo|muy_bajo,encryptar|agregar_puntos_separadores|no_transformar|no_transformar,True,True
+curso,,no_sensible,,muy_bajo,no_transformar|no_transformar|no_transformar|no_transformar,,False
+familia_profesional,,no_sensible,,muy_bajo,no_transformar|no_transformar|no_transformar|no_transformar,,False
+modalidad,,no_sensible,,muy_bajo,no_transformar|no_transformar|no_transformar|no_transformar,,False
+fecha_matricula,,cuasi identificador atributo sensible no sensible,,muy_bajo|muy_alto|muy_bajo|muy_bajo,agregar_puntos_separadores|encryptar|no_transformar|no_transformar,,False
+dni,DNI,identificador_directo,identificador_directo,alto,cifrado,True,True
+email,Correo electrónico,identificador_directo,identificador_directo,alto,cifrado,True,True
+telefono,Teléfono,identificador_directo,identificador_directo,alto,cifrado,True,True
+id_persona,id_pedido,identificador_directo,no_sensible,alto,cifrado,False,True
+CP,Código postal,cuasi_identificador,cuasi_identificador,bajo,encriptación,True,True
+provincia,Provincia,cuasi_identificador,cuasi_identificador,bajo,encriptación,True,True
+pais,País,cuasi_identificador,cuasi_identificador,bajo,encriptación,True,True
+nivel_estudios,Educación,cuasi_identificador,cuasi_identificador,bajo,encriptación,True,True
+situacion_laboral,,cuasi_identificador,,bajo,encriptación,,False
+ingresos_hogar,Ingresos,atributo_sensible,atributo_sensible,alto,cifrado,True,True
+consentimiento_contacto,,atributo_sensible,,bajo,encriptación,,False
+created_at,fecha registro,cuasi_identificador,no_sensible,bajo,encriptación,False,True
+id_practica,id_pedido,no_sensible,no_sensible,bajo|muy_alto|muy_alto|alto,,True,True
+id_persona,id_pedido,no_sensible,no_sensible,bajo|muy_alto|muy_alto|alto,,True,True
+empresa,,atributo sensible no sensible,,medio|alto,cifra,,False
+sector,,atributo sensible no sensible,,medio|alto,cifra,,False
+salario_mensual,Salario,no_sensible,atributo_sensible,medio|muy_alto,cifra,False,True
+ciudad_puesto,Ciudad,no_sensible,cuasi_identificador,medio|muy_alto,cifra,False,True
+provincia_puesto,Provincia,no_sensible,cuasi_identificador,medio|muy_alto,cifra,False,True
+ccaa_puesto,Comunidad autónoma,no_sensible,cuasi_identificador,medio|muy_alto,cifra,False,True
+pais_puesto,País,no_sensible,cuasi_identificador,medio|muy_alto,cifra,False,True
+duracion_meses,,no sensible atributo sensible,,bajo|muy_alto,,,False

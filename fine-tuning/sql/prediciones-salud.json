@@ -1,0 +1,76 @@
+{
+  "items": [
+    {
+      "name": "id_persona",
+      "category": "identificador_directo",
+      "rationale": "Es un identificador interno único por persona en el sistema de salud, permite seguir a la misma persona en distintas tablas.",
+      "confidence": 0.95
+    },
+    {
+      "name": "nombre_completo",
+      "category": "identificador_directo",
+      "rationale": "El nombre y apellidos completos permiten identificar de forma directa y unívoca a la persona.",
+      "confidence": 0.98
+    },
+    {
+      "name": "edad",
+      "category": "cuasi_identificador",
+      "rationale": "La edad es un dato demográfico que no identifica por sí solo, pero combinado con otras columnas ayuda a reidentificar.",
+      "confidence": 0.97
+    },
+    {
+      "name": "fecha_nacimiento",
+      "category": "cuasi_identificador",
+      "rationale": "La fecha de nacimiento es un dato clásico de cuasi-identificador, muy informativo cuando se combina con otras variables.",
+      "confidence": 0.97
+    },
+    {
+      "name": "sexo",
+      "category": "cuasi_identificador",
+      "rationale": "El sexo o género es un atributo demográfico que no identifica por sí solo, pero contribuye a reducir el grupo de posibles personas.",
+      "confidence": 0.96
+    },
+    {
+      "name": "dni",
+      "category": "identificador_directo",
+      "rationale": "El DNI es un identificador oficial único por persona y permite una identificación directa.",
+      "confidence": 0.99
+    },
+    {
+      "name": "ciudad",
+      "category": "cuasi_identificador",
+      "rationale": "La ciudad de residencia es un dato de localización que no identifica por sí solo pero aporta mucha información combinada con otros campos.",
+      "confidence": 0.96
+    },
+    {
+      "name": "cp",
+      "category": "cuasi_identificador",
+      "rationale": "El código postal aporta localización relativamente precisa y es un cuasi-identificador típico en anonimización.",
+      "confidence": 0.98
+    },
+    {
+      "name": "ccaa",
+      "category": "cuasi_identificador",
+      "rationale": "La comunidad autónoma es un dato de localización regional; por sí solo no identifica, pero contribuye al perfil demográfico.",
+      "confidence": 0.94
+    },
+    {
+      "name": "id_consulta",
+      "category": "no_sensible",
+      "rationale": "Es un identificador técnico de la consulta; identifica el registro, no directamente a la persona, y se usa para gestión interna.",
+      "confidence": 0.82
+    },
+    {
+      "name": "id_persona",
+      "category": "identificador_directo",
+      "rationale": "Aunque actúa como clave foránea, referencia de forma directa al identificador único de una persona en el sistema.",
+      "confidence": 0.9
+    },
+    {
+      "name": "diagnostico",
+      "category": "atributo_sensible",
+      "rationale": "El diagnóstico médico forma parte de los datos de salud, considerados especialmente protegidos por el RGPD.",
+      "confidence": 0.99
+    }
+  ]
+}

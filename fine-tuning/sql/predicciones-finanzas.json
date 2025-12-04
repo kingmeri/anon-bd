@@ -1,0 +1,82 @@
+{
+  "items": [
+    {
+      "name": "id_cliente",
+      "category": "identificador_directo",
+      "rationale": "Es un identificador interno único por cliente en el sistema; permite seguir a la misma persona en distintas tablas aunque no sea un identificador del mundo real.",
+      "confidence": 0.95
+    },
+    {
+      "name": "nombre_completo",
+      "category": "identificador_directo",
+      "rationale": "El nombre y apellidos completos permiten identificar de forma directa y unívoca a la persona.",
+      "confidence": 0.98
+    },
+    {
+      "name": "dni",
+      "category": "identificador_directo",
+      "rationale": "El DNI es un identificador oficial único por persona y permite una identificación directa.",
+      "confidence": 0.99
+    },
+    {
+      "name": "edad",
+      "category": "cuasi_identificador",
+      "rationale": "La edad es un dato demográfico clásico de cuasi-identificador que, combinado con otros campos, ayuda a reidentificar personas.",
+      "confidence": 0.97
+    },
+    {
+      "name": "cp",
+      "category": "cuasi_identificador",
+      "rationale": "El código postal aporta localización relativamente precisa y es un cuasi-identificador típico en anonimización.",
+      "confidence": 0.98
+    },
+    {
+      "name": "ciudad",
+      "category": "cuasi_identificador",
+      "rationale": "La ciudad de residencia es un dato de localización que no identifica por sí sola pero reduce el grupo de posibles personas cuando se combina con otros atributos.",
+      "confidence": 0.96
+    },
+    {
+      "name": "salario_mensual",
+      "category": "atributo_sensible",
+      "rationale": "El salario es un dato económico individual detallado, considerado información especialmente sensible por su carácter intrusivo.",
+      "confidence": 0.99
+    },
+    {
+      "name": "scoring_crediticio",
+      "category": "atributo_sensible",
+      "rationale": "El score crediticio refleja la solvencia o riesgo financiero de la persona, información económica especialmente sensible.",
+      "confidence": 0.99
+    },
+    {
+      "name": "IBAN",
+      "category": "identificador_directo",
+      "rationale": "El IBAN identifica de manera única una cuenta bancaria asociada a una persona y permite su identificación directa en el contexto financiero.",
+      "confidence": 0.99
+    },
+    {
+      "name": "id_pedido",
+      "category": "no_sensible",
+      "rationale": "Es un identificador técnico del pedido; identifica el registro de transacción, no directamente a la persona.",
+      "confidence": 0.85
+    },
+    {
+      "name": "id_cliente",
+      "category": "identificador_directo",
+      "rationale": "En esta tabla actúa como clave foránea que enlaza cada pedido con un cliente concreto, referenciando un identificador directo.",
+      "confidence": 0.9
+    },
+    {
+      "name": "fecha_registro",
+      "category": "no_sensible",
+      "rationale": "La fecha y hora de registro del pedido describe el momento de la operación, pero no identifica por sí sola a la persona ni es especialmente sensible.",
+      "confidence": 0.9
+    },
+    {
+      "name": "importe_total",
+      "category": "no_sensible",
+      "rationale": "El importe total del pedido describe una transacción concreta; en este contexto se trata como dato de negocio del pedido, no como atributo económico estable de la persona.",
+      "confidence": 0.88
+    }
+  ]
+}

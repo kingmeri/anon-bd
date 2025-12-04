@@ -1,0 +1,214 @@
+{
+  "DNI": [
+    "nif persona fisica",
+    "dni_nif",
+    "documento nacional de identidad"
+  ],
+  "NIE": [
+    "nif extranjero",
+    "numero de identidad de extranjero"
+  ],
+  "NIF": [
+    "numero de identificacion fiscal",
+    "nif persona fisica",
+    "nif autonomo",
+    "nif pf",
+    "nif"
+  ],
+  "Pasaporte": [
+    "passport"
+  ],
+  "Número de Seguridad Social": [
+    "nss",
+    "numero de afiliacion a la seguridad social",
+    "naf",
+    "num_ss"
+  ],
+  "IBAN": [
+    "iban",
+    "iban_es"
+  ],
+  "Número de cuenta bancaria": [
+    "numero de cuenta",
+    "nº de cuenta bancaria",
+    "ccc"
+  ],
+  "Número de tarjeta crédito": [
+    "tarjeta credito",
+    "num_tarjeta_credito",
+    "credit card number"
+  ],
+  "Número de tarjeta débito": [
+    "tarjeta debito",
+    "num_tarjeta_debito",
+    "debit card number"
+  ],
+  "Correo electrónico": [
+    "email",
+    "correo",
+    "correo electronico",
+    "e-mail"
+  ],
+  "Teléfono": [
+    "telefono",
+    "tlf",
+    "movil",
+    "fijo",
+    "numero de telefono"
+  ],
+  "Matrícula de vehículo": [
+    "matricula",
+    "placa"
+  ],
+  "Nombre y apellidos": [
+    "nombre completo",
+    "nombre",
+    "apellido",
+    "apellido1",
+    "apellido2"
+  ]
+  ,
+  "Nombre de usuario": [
+    "username",
+    "user",
+    "handle",
+    "nick",
+    "login"
+  ],
+  "Fecha de nacimiento": [
+    "fec_nac",
+    "fecha nacimiento"
+  ],
+  "Edad": [
+    "edad exacta"
+  ],
+  "Año de nacimiento": [
+    "ano de nacimiento",
+    "year of birth"
+  ],
+  "Código postal": [
+    "cp",
+    "postal code",
+    "zip",
+    "codigo postal"
+  ],
+  "Ciudad": [
+    "localidad",
+    "ciudad_puesto",
+    "municipio"
+  ],
+  "Provincia": [
+    "provincia_puesto"
+  ],
+  "Comunidad autónoma": [
+    "ccaa",
+    "comunidad autonoma",
+    "ccaa_puesto"
+  ],
+  "País": [
+    "pais",
+    "pais_puesto"
+  ],
+  "Sexo o género": [
+    "sexo",
+    "genero"
+  ],
+  "Educación": [
+    "estudios",
+    "nivel_estudios",
+    "nivel_educacion"
+  ],
+  "Diagnósticos médicos": [
+    "diagnosticos"
+  ],
+  "Enfermedades": [
+    "patologias"
+  ],
+  "Historial médico": [
+    "historial clinico",
+    "ingresos medicos",
+    "cirugias"
+  ],
+  "Tratamientos": [
+    "tratamiento"
+  ],
+  "Medicación": [
+    "medicamentos",
+    "medicinas"
+  ],
+  "Discapacidad": [],
+  "Embarazo": [],
+  "Fertilidad": [],
+  "Aborto": [],
+  "VIH": [
+    "hiv"
+  ],
+  "ETS": [
+    "infecciones de transmision sexual",
+    "its"
+  ],
+  "Otras enfermedades estigmatizantes": [],
+  "Consumo de alcohol": [],
+  "Consumo de drogas": [],
+  "Orientación sexual": [],
+  "Vida sexual": [],
+  "Creencias religiosas": [],
+  "Opiniones políticas": [],
+  "Afiliación política": [],
+  "Afiliación sindical": [],
+  "Antecedentes penales": [],
+  "Sanciones": [],
+  "Ingresos": [
+    "renta",
+    "ingresos_hogar"
+    
+  ],
+  "Salario": [
+    "sueldo",
+    "salario_mensual"
+  ],
+  "Deudas": [],
+  "Solvencia": [],
+  "Scoring crediticio": [
+    "score crediticio",
+    "credit score"
+  ],
+  "Prestaciones sociales": [
+    "beneficios sociales"
+  ],
+  "id_pedido": [
+    "pedido_id",
+    "id_matricula",
+    "id_persona",
+    "id_practica"
+
+  ],
+  "sku": [
+    "sku_producto"
+  ],
+  "categoría producto": [
+    "categoria producto"
+  ],
+  "color producto": [
+    "color"
+  ],
+  "fecha registro": [
+    "fecha alta",
+    "created_at",
+    "fecha_registro",
+    "fecha_alta"
+  ],
+  "estado envío": [
+    "estado envio"
+  ],
+  "país producto": [
+    "pais producto"
+  ],
+  "cantidad": [],
+  "precio producto": [
+    "precio"
+  ],
+  "número factura empresa": [
+    "num factura empresa"
+  ]
+}

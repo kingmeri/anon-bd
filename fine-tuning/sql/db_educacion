@@ -1,0 +1,24 @@
+USE formacion_academica_simple;
+
+DROP TABLE IF EXISTS matricula;
+DROP TABLE IF EXISTS estudiante;
+
+CREATE TABLE estudiante (
+  id_estudiante      INT AUTO_INCREMENT PRIMARY KEY,  -- identificador_directo (técnico)
+  nombre_completo    VARCHAR(100),
+  fecha_nacimiento   VARCHAR(10),
+  sexo               VARCHAR(10), 
+  edad               TINYINT,                         -- cuasi-identificador
+  cp                 CHAR(5),                         -- cuasi-identificador (CP)
+  ciudad             VARCHAR(80),                     -- cuasi-identificador (localidad)
+  nivel_educativo    VARCHAR(60),                     -- cuasi-identificador (jerarquía educación)
+  situacion_laboral  VARCHAR(60),                     -- cuasi-identificador
+  salario_mensual    INT                              -- atributo_sensible (salario)
+);
+
+CREATE TABLE matricula (
+  id_matricula       INT AUTO_INCREMENT PRIMARY KEY,
+  id_estudiante      INT NOT NULL,
+  curso              VARCHAR(120),                    -- no_sensible
+  FOREIGN KEY (id_estudiante) REFERENCES estudiante(id_estudiante)
+);

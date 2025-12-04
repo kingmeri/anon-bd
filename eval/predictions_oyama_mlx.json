@@ -1,0 +1,116 @@
+{
+  "items": [
+    {
+      "table": "matricula",
+      "name": "id_matricula",
+      "category": "no_sensible",
+      "rationale": "Identificador técnico de la matrícula; por sí solo no identifica a la persona.",
+      "confidence": 0.95
+    },
+    {
+      "table": "matricula",
+      "name": "id_persona",
+      "category": "identificador_directo",
+      "rationale": "Identificador oficial único por persona (DNI, NIE, pasaporte, etc.); identifica directamente a la persona.",
+      "confidence": 0.97
+    },
+    {
+      "table": "matricula",
+      "name": "curso",
+      "category": "cuasi_identificador",
+      "rationale": "Nombre del curso; por sí solo no identifica a la persona, pero combinado con otros atributos lo hace.",
+      "confidence": 0.9
+    },
+    {
+      "table": "matricula",
+      "name": "familia_profesional",
+      "category": "cuasi_identificador",
+      "rationale": "Nombre de la familia profesional; atributo demográfico que ayuda a reducir el grupo de posibles personas.",
+      "confidence": 0.95
+    },
+    {
+      "table": "matricula",
+      "name": "modalidad",
+      "category": "cuasi_identificador",
+      "rationale": "Modo de enseñanza (online, mixta, etc.); por sí solo no identifica a la persona, pero contribuye a la reidentificación.",
+      "confidence": 0.9
+    },
+    {
+      "table": "matricula",
+      "name": "fecha_matricula",
+      "category": "cuasi_identificador",
+      "rationale": "Fecha de la matrícula; dato de fecha que, combinado con otros atributos, permite reidentificar a la persona.",
+      "confidence": 0.9
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "id_practica",
+      "category": "identificador_directo",
+      "rationale": "Identificador interno único por práctica; permite seguir a la práctica en el sistema.",
+      "confidence": 0.95
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "id_persona",
+      "category": "identificador_directo",
+      "rationale": "Identificador oficial único por persona; permite localizar a la persona en el sistema.",
+      "confidence": 0.97
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "empresa",
+      "category": "cuasi_identificador",
+      "rationale": "Nombre de la empresa; no identifica por sí solo a la persona, pero ayuda a localizarla.",
+      "confidence": 0.9
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "sector",
+      "category": "cuasi_identificador",
+      "rationale": "Sector o industria en la que la persona trabaja; no un identificador técnico.",
+      "confidence": 0.95
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "salario_mensual",
+      "category": "cuasi_identificador",
+      "rationale": "Importe del salario; número; no un atributo sensible.",
+      "confidence": 0.9
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "ciudad_puesto",
+      "category": "cuasi_identificador",
+      "rationale": "Ciudad en la que la persona trabaja; localización granular.",
+      "confidence": 0.95
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "provincia_puesto",
+      "category": "cuasi_identificador",
+      "rationale": "Provincia en la que la persona trabaja; localización regional.",
+      "confidence": 0.9
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "ccaa_puesto",
+      "category": "cuasi_identificador",
+      "rationale": "Comunidad autónoma en la que la persona trabaja; localización granular de la región.",
+      "confidence": 0.9
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "pais_puesto",
+      "category": "cuasi_identificador",
+      "rationale": "País en el que la persona trabaja; localización nacional.",
+      "confidence": 0.95
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "duracion_meses",
+      "category": "no_sensible",
+      "rationale": "Duración del contrato; número; porcentaje del tiempo trabajado.",
+      "confidence": 0.9
+    }
+  ]
+}

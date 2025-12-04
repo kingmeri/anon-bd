@@ -1,0 +1,2 @@
+new -> despues de decirle que pasara tabla a tabla pero antes d eobligarle a que eliguiera solamente una categoria por columna
+new2 -> despues de obligarle a elegir sola una categoria por columna

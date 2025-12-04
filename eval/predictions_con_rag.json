@@ -1,0 +1,277 @@
+{
+  "items": [
+    {
+      "table": "matricula",
+      "name": "id_matricula",
+      "category": "identificador_directo",
+      "rationale": "es un identificador único por persona en el dataset",
+      "confidence": 0.8
+    },
+    {
+      "table": "matricula",
+      "name": "id_persona",
+      "category": "identificador_directo",
+      "rationale": "es un identificador oficial utilizado para identificar a una persona",
+      "confidence": 0.9
+    },
+    {
+      "table": "matricula",
+      "name": "curso",
+      "category": "no_sensible",
+      "rationale": "describe un curso que puede ser repetido en diferentes instituciones y contextos",
+      "confidence": 0.7
+    },
+    {
+      "table": "matricula",
+      "name": "familia_profesional",
+      "category": "cuasi_identificador",
+      "rationale": "describe una familia profesional, pero no es único para cada persona",
+      "confidence": 0.8
+    },
+    {
+      "table": "matricula",
+      "name": "modalidad",
+      "category": "no_sensible",
+      "rationale": "describe la modalidad de enseñanza que puede variar en diferentes instituciones y contextos",
+      "confidence": 0.6
+    },
+    {
+      "table": "matricula",
+      "name": "fecha_matricula",
+      "category": "cuasi_identificador",
+      "rationale": "describe una fecha de matrícula que puede ser única para cada persona, pero no es suficiente para identificarla",
+      "confidence": 0.9
+    },
+    {
+      "table": "persona",
+      "name": "id_persona",
+      "category": "identificador_directo",
+      "rationale": "Identificador único para cada persona en el dataset.",
+      "confidence": 0.9
+    },
+    {
+      "table": "persona",
+      "name": "dni",
+      "category": "identificador_directo",
+      "rationale": "Identificador oficial único por persona según el sistema español.",
+      "confidence": 0.95
+    },
+    {
+      "table": "persona",
+      "name": "nif",
+      "category": "identificador_directo",
+      "rationale": "Identificador fiscal para personas físicas y jurídicas según el sistema español.",
+      "confidence": 0.92
+    },
+    {
+      "table": "persona",
+      "name": "nie",
+      "category": "identificador_directo",
+      "rationale": "Identificador oficial para extranjeros residentes según el sistema español.",
+      "confidence": 0.88
+    },
+    {
+      "table": "persona",
+      "name": "pasaporte",
+      "category": "identificador_directo",
+      "rationale": "Identificador único y único por persona, según el sistema internacional.",
+      "confidence": 0.95
+    },
+    {
+      "table": "persona",
+      "name": "nombre",
+      "category": "cuasi_identificador",
+      "rationale": "Nombre completo que puede ser utilizado para identificar a una persona, pero no es un identificador único.",
+      "confidence": 0.85
+    },
+    {
+      "table": "persona",
+      "name": "apellido1",
+      "category": "cuasi_identificador",
+      "rationale": " Primer apellido que puede ser utilizado para identificar a una persona, pero no es un identificador único.",
+      "confidence": 0.8
+    },
+    {
+      "table": "persona",
+      "name": "apellido2",
+      "category": "atributo_sensible",
+      "rationale": "Segundo apellido que puede contener información sensible sobre la persona.",
+      "confidence": 0.9
+    },
+    {
+      "table": "persona",
+      "name": "email",
+      "category": "cuasi_identificador",
+      "rationale": "Dirección de correo electrónico que puede ser utilizada para identificar a una persona, pero no es un identificador único.",
+      "confidence": 0.85
+    },
+    {
+      "table": "persona",
+      "name": "telefono",
+      "category": "cuasi_identificador",
+      "rationale": "Número de teléfono que puede ser utilizado para identificar a una persona, pero no es un identificador único.",
+      "confidence": 0.8
+    },
+    {
+      "table": "persona",
+      "name": "fecha_nacimiento",
+      "category": "cuasi_identificador",
+      "rationale": "Fecha de nacimiento que puede ser utilizada para reducir el grupo posible de personas.",
+      "confidence": 0.85
+    },
+    {
+      "table": "persona",
+      "name": "sexo",
+      "category": "cuasi_identificador",
+      "rationale": "Sexo que puede ser utilizado para identificar a una persona, pero no es un identificador único.",
+      "confidence": 0.8
+    },
+    {
+      "table": "persona",
+      "name": "cp",
+      "category": "atributo_sensible",
+      "rationale": "Código postal que puede contener información sensible sobre la ubicación de la persona.",
+      "confidence": 0.9
+    },
+    {
+      "table": "persona",
+      "name": "ciudad",
+      "category": "atributo_sensible",
+      "rationale": "Nombre de la ciudad que puede contener información sensible sobre la ubicación de la persona.",
+      "confidence": 0.85
+    },
+    {
+      "table": "persona",
+      "name": "provincia",
+      "category": "atributo_sensible",
+      "rationale": "Nombre de la provincia que puede contener información sensible sobre la ubicación de la persona.",
+      "confidence": 0.8
+    },
+    {
+      "table": "persona",
+      "name": "ccaa",
+      "category": "atributo_sensible",
+      "rationale": "Abreviatura del nombre de la comunidad autónoma que puede contener información sensible sobre la ubicación de la persona.",
+      "confidence": 0.85
+    },
+    {
+      "table": "persona",
+      "name": "pais",
+      "category": "atributo_sensible",
+      "rationale": "Nombre del país que puede contener información sensible sobre la nacionalidad o ubicación de la persona.",
+      "confidence": 0.9
+    },
+    {
+      "table": "persona",
+      "name": "nivel_estudios",
+      "category": "cuasi_identificador",
+      "rationale": "Nivel educativo que puede ser utilizado para identificar a una persona, pero no es un identificador único.",
+      "confidence": 0.85
+    },
+    {
+      "table": "persona",
+      "name": "situacion_laboral",
+      "category": "cuasi_identificador",
+      "rationale": "Situación laboral que puede ser utilizada para identificar a una persona, pero no es un identificador único.",
+      "confidence": 0.8
+    },
+    {
+      "table": "persona",
+      "name": "ingresos_hogar",
+      "category": "atributo_sensible",
+      "rationale": "Ingresos mensuales de hogar que pueden contener información sensible sobre la situación económica de la persona.",
+      "confidence": 0.9
+    },
+    {
+      "table": "persona",
+      "name": "tamano_hogar",
+      "category": "cuasi_identificador",
+      "rationale": "Tamaño del hogar que puede ser utilizado para identificar a una persona, pero no es un identificador único.",
+      "confidence": 0.85
+    },
+    {
+      "table": "persona",
+      "name": "consentimiento_contacto",
+      "category": "cuasi_identificador",
+      "rationale": "Consenso para contactar que puede ser utilizado para identificar a una persona, pero no es un identificador único.",
+      "confidence": 0.8
+    },
+    {
+      "table": "persona",
+      "name": "created_at",
+      "category": "atributo_sensible",
+      "rationale": "Fecha y hora de creación que pueden contener información sensible sobre el momento en que se recogió la información.",
+      "confidence": 0.9
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "id_practica",
+      "category": "identificador_directo|cuasi_identificador|atributo_sensible|no_sensible",
+      "rationale": "Clave técnica con identificador único, pero no es un identificador del “mundo real”.",
+      "confidence": 0.8
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "id_persona",
+      "category": "identificador_directo|cuasi_identificador|atributo_sensible|no_sensible",
+      "rationale": "Identificador oficial único por persona, pero puede ser usado para reconstruir a una persona en el dataset.",
+      "confidence": 0.9
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "empresa",
+      "category": "identificador_directo|cuasi_identificador|atributo_sensible|no_sensible",
+      "rationale": "Nombre de la empresa, no identificador directo o cuasi-identificador.",
+      "confidence": 0.6
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "sector",
+      "category": "identificador_directo|cuasi_identificador|atributo_sensible|no_sensible",
+      "rationale": "Nombre del sector, no identificador directo o cuasi-identificador.",
+      "confidence": 0.6
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "salario_mensual",
+      "category": "cuasi_identificador|atributo_sensible|no_sensible",
+      "rationale": "Valor monetario de un salario, pero no identificador directo o cuasi-identificador.",
+      "confidence": 0.7
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "ciudad_puesto",
+      "category": "cuasi_identificador|atributo_sensible|no_sensible",
+      "rationale": "Nombre de la ciudad, no identificador directo o cuasi-identificador.",
+      "confidence": 0.6
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "provincia_puesto",
+      "category": "cuasi_identificador|atributo_sensible|no_sensible",
+      "rationale": "Nombre de la provincia, no identificador directo o cuasi-identificador.",
+      "confidence": 0.6
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "ccaa_puesto",
+      "category": "cuasi_identificador|atributo_sensible|no_sensible",
+      "rationale": "Nombre de la ccaa, no identificador directo o cuasi-identificador.",
+      "confidence": 0.6
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "pais_puesto",
+      "category": "cuasi_identificador|atributo_sensible|no_sensible",
+      "rationale": "Nombre del país, no identificador directo o cuasi-identificador.",
+      "confidence": 0.6
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "duracion_meses",
+      "category": "atributo_sensible|no_sensible",
+      "rationale": "Valor booleano de duración en meses, pero no sensible.",
+      "confidence": 0.7
+    }
+  ]
+}

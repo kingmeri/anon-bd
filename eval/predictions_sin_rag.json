@@ -1,0 +1,116 @@
+{
+  "items": [
+    {
+      "table": "matricula",
+      "name": "id_matricula",
+      "category": "identificador_directo",
+      "rationale": "Es un campo de identificación único y primario, con un número distinto en cada fila.",
+      "confidence": 1.0
+    },
+    {
+      "table": "matricula",
+      "name": "id_persona",
+      "category": "cuasi_identificador",
+      "rationale": "Aunque no es un identificador directo, se puede combinar con otros datos para identificar a una persona única.",
+      "confidence": 0.8
+    },
+    {
+      "table": "matricula",
+      "name": "curso",
+      "category": "no_sensible",
+      "rationale": "Es un campo de texto que describe el curso al que se matricula, pero no revela información personal identificable.",
+      "confidence": 1.0
+    },
+    {
+      "table": "matricula",
+      "name": "familia_profesional",
+      "category": "cuasi_identificador",
+      "rationale": "Aunque es un campo de texto, puede contener información que identifique a una persona o familia profesional, aunque no sea directa.",
+      "confidence": 0.7
+    },
+    {
+      "table": "matricula",
+      "name": "modalidad",
+      "category": "no_sensible",
+      "rationale": "Es un campo de texto que describe la modalidad del curso, pero no revela información personal identificable.",
+      "confidence": 1.0
+    },
+    {
+      "table": "matricula",
+      "name": "fecha_matricula",
+      "category": "atributo_sensible",
+      "rationale": "Contiene información sensible como fecha de nacimiento o datos personales que pueden ser utilizados para identificar a una persona.",
+      "confidence": 0.9
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "id_practica",
+      "category": "identificador_directo",
+      "rationale": "es un campo primario y único identificante de la práctica de empleo",
+      "confidence": 1.0
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "id_persona",
+      "category": "cuasi_identificador",
+      "rationale": "no es completamente seguro identificar a una persona con este campo, ya que no incluye todos los datos necesarios para su identificación única",
+      "confidence": 0.8
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "empresa",
+      "category": "atributo_sensible",
+      "rationale": "contiene información sensible sobre la empresa que contrata a las personas, lo que puede ser relevante para la identidad de las mismas",
+      "confidence": 0.9
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "sector",
+      "category": "atributo_sensible",
+      "rationale": "contiene información sensible sobre el sector en el que se desarrolla la práctica de empleo, lo que puede ser relevante para la identidad de las mismas",
+      "confidence": 0.9
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "salario_mensual",
+      "category": "atributo_sensible",
+      "rationale": "contiene información sensible sobre el salario mensual de las personas, lo que puede ser relevante para la identidad de las mismas",
+      "confidence": 0.9
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "ciudad_puesto",
+      "category": "atributo_sensible",
+      "rationale": "contiene información sensible sobre la ciudad en el que se desarrolla la práctica de empleo, lo que puede ser relevante para la identidad de las mismas",
+      "confidence": 0.9
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "provincia_puesto",
+      "category": "atributo_sensible",
+      "rationale": "contiene información sensible sobre la provincia en el que se desarrolla la práctica de empleo, lo que puede ser relevante para la identidad de las mismas",
+      "confidence": 0.9
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "ccaa_puesto",
+      "category": "atributo_sensible",
+      "rationale": "contiene información sensible sobre la comunidad autónoma en el que se desarrolla la práctica de empleo, lo que puede ser relevante para la identidad de las mismas",
+      "confidence": 0.9
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "pais_puesto",
+      "category": "atributo_sensible",
+      "rationale": "contiene información sensible sobre el país en el que se desarrolla la práctica de empleo, lo que puede ser relevante para la identidad de las mismas",
+      "confidence": 0.9
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "duracion_meses",
+      "category": "no_sensible",
+      "rationale": "no contiene información sensible sobre las personas, ya que es un campo numérico que no revela identidad personal",
+      "confidence": 1.0
+    }
+  ]
+}

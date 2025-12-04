@@ -1,0 +1,17 @@
+name_input,name_canonical,pred_category,gold_category,risk_info,recommended_treatment_info,correct,in_eval
+id_matricula,id_pedido,no_sensible,no_sensible,,,True,True
+id_persona,id_pedido,identificador_directo,no_sensible,,,False,True
+curso,,cuasi_identificador,,,,,False
+familia_profesional,,cuasi_identificador,,,,,False
+modalidad,,cuasi_identificador,,,,,False
+fecha_matricula,,cuasi_identificador,,,,,False
+id_practica,id_pedido,identificador_directo,no_sensible,,,False,True
+id_persona,id_pedido,identificador_directo,no_sensible,,,False,True
+empresa,,cuasi_identificador,,,,,False
+sector,,cuasi_identificador,,,,,False
+salario_mensual,Salario,cuasi_identificador,atributo_sensible,,,False,True
+ciudad_puesto,Ciudad,cuasi_identificador,cuasi_identificador,,,True,True
+provincia_puesto,Provincia,cuasi_identificador,cuasi_identificador,,,True,True
+ccaa_puesto,Comunidad autónoma,cuasi_identificador,cuasi_identificador,,,True,True
+pais_puesto,País,cuasi_identificador,cuasi_identificador,,,True,True
+duracion_meses,,no_sensible,,,,,False

@@ -1,0 +1,23 @@
+USE salud;
+
+DROP TABLE IF EXISTS consulta;
+DROP TABLE IF EXISTS persona;
+
+CREATE TABLE persona (
+  id_persona         INT AUTO_INCREMENT PRIMARY KEY,   -- identificador_directo 
+  nombre_completo    VARCHAR(100),   
+  edad               TINYINT,
+  fecha_nacimiento   VARCHAR(10),
+  sexo               VARCHAR(10),                         -- cuasi-identificador numérico
+  dni                VARCHAR(20),
+  ciudad             VARCHAR(80),
+  cp                 CHAR(5),                 -- cuasi-identificador (localidad)
+  ccaa               VARCHAR(80),                     -- cuasi-identificador (CCAA)                             -- atributo_sensible (ingresos)
+);
+
+CREATE TABLE consulta (
+  id_consulta        INT AUTO_INCREMENT PRIMARY KEY,
+  id_persona         INT NOT NULL,
+  diagnostico        VARCHAR(120),                    -- atributo_sensible
+  FOREIGN KEY (id_persona) REFERENCES persona(id_persona)
+);

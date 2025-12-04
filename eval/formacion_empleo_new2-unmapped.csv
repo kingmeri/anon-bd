@@ -1,0 +1,11 @@
+name_input,name_canonical,pred_category,gold_category,risk_info,recommended_treatment_info,correct,in_eval
+curso,,no_sensible,,bajo,,,False
+familia_profesional,,no_sensible,,bajo,,,False
+modalidad,,no_sensible,,bajo,,,False
+fecha_matricula,,no_sensible,,bajo,,,False
+situacion_laboral,,cuasi_identificador,,bajo,string,,False
+tamano_hogar,,no_sensible,,bajo,string,,False
+consentimiento_contacto,,no_sensible,,bajo,string,,False
+duracion_meses,,no_sensible,,bajo,agrupar,,False
+empresa,,no_sensible,,bajo,agrupar,,False
+sector,,no_sensible,,bajo,agrupar,,False

@@ -1,0 +1,301 @@
+{
+  "items": [
+    {
+      "table": "matricula",
+      "name": "id_matricula",
+      "category": "identificador_directo",
+      "risk": "muy_alto",
+      "recommended_treatment": "",
+      "rationale": "Es un campo que almacena información única y distinguible de cualquier otro usuario.",
+      "confidence": 1.0
+    },
+    {
+      "table": "matricula",
+      "name": "id_persona",
+      "category": "identificador_directo",
+      "risk": "muy_alto",
+      "recommended_treatment": "",
+      "rationale": "Es un campo que almacena información única y distinguible de cualquier otro usuario.",
+      "confidence": 1.0
+    },
+    {
+      "table": "matricula",
+      "name": "curso",
+      "category": "no_sensible",
+      "risk": "bajo",
+      "recommended_treatment": "",
+      "rationale": "Es un campo que almacena información no sensible y no identificativa.",
+      "confidence": 1.0
+    },
+    {
+      "table": "matricula",
+      "name": "familia_profesional",
+      "category": "no_sensible",
+      "risk": "bajo",
+      "recommended_treatment": "",
+      "rationale": "Es un campo que almacena información no sensible y no identificativa.",
+      "confidence": 1.0
+    },
+    {
+      "table": "matricula",
+      "name": "modalidad",
+      "category": "no_sensible",
+      "risk": "bajo",
+      "recommended_treatment": "",
+      "rationale": "Es un campo que almacena información no sensible y no identificativa.",
+      "confidence": 1.0
+    },
+    {
+      "table": "matricula",
+      "name": "fecha_matricula",
+      "category": "no_sensible",
+      "risk": "bajo",
+      "recommended_treatment": "",
+      "rationale": "Es un campo que almacena información no sensible y no identificativa.",
+      "confidence": 1.0
+    },
+    {
+      "table": "persona",
+      "name": "id_persona",
+      "category": "identificador_directo",
+      "risk": "muy_alto",
+      "recommended_treatment": "string",
+      "rationale": "PK",
+      "confidence": 0.0
+    },
+    {
+      "table": "persona",
+      "name": "dni",
+      "category": "identificador_directo",
+      "risk": "muy_alto",
+      "recommended_treatment": "string",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "table": "persona",
+      "name": "email",
+      "category": "identificador_directo",
+      "risk": "muy_alto",
+      "recommended_treatment": "string",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "table": "persona",
+      "name": "telefono",
+      "category": "identificador_directo",
+      "risk": "muy_alto",
+      "recommended_treatment": "string",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "table": "persona",
+      "name": "fecha_nacimiento",
+      "category": "cuasi_identificador",
+      "risk": "bajo",
+      "recommended_treatment": "string",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "table": "persona",
+      "name": "sexo",
+      "category": "cuasi_identificador",
+      "risk": "bajo",
+      "recommended_treatment": "string",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "table": "persona",
+      "name": "cp",
+      "category": "cuasi_identificador",
+      "risk": "bajo",
+      "recommended_treatment": "string",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "table": "persona",
+      "name": "ciudad",
+      "category": "cuasi_identificador",
+      "risk": "bajo",
+      "recommended_treatment": "string",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "table": "persona",
+      "name": "provincia",
+      "category": "cuasi_identificador",
+      "risk": "bajo",
+      "recommended_treatment": "string",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "table": "persona",
+      "name": "ccaa",
+      "category": "cuasi_identificador",
+      "risk": "bajo",
+      "recommended_treatment": "string",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "table": "persona",
+      "name": "pais",
+      "category": "cuasi_identificador",
+      "risk": "bajo",
+      "recommended_treatment": "string",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "table": "persona",
+      "name": "nivel_estudios",
+      "category": "cuasi_identificador",
+      "risk": "bajo",
+      "recommended_treatment": "string",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "table": "persona",
+      "name": "situacion_laboral",
+      "category": "cuasi_identificador",
+      "risk": "bajo",
+      "recommended_treatment": "string",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "table": "persona",
+      "name": "ingresos_hogar",
+      "category": "atributo_sensible",
+      "risk": "alto",
+      "recommended_treatment": "string",
+      "rationale": "Financial Information",
+      "confidence": 0.0
+    },
+    {
+      "table": "persona",
+      "name": "tamano_hogar",
+      "category": "no_sensible",
+      "risk": "bajo",
+      "recommended_treatment": "string",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "table": "persona",
+      "name": "consentimiento_contacto",
+      "category": "no_sensible",
+      "risk": "bajo",
+      "recommended_treatment": "string",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "table": "persona",
+      "name": "created_at",
+      "category": "no_sensible",
+      "risk": "bajo",
+      "recommended_treatment": "string",
+      "rationale": "",
+      "confidence": 0.0
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "id_practica",
+      "category": "identificador_directo",
+      "risk": "muy_alto",
+      "recommended_treatment": "eliminar",
+      "rationale": "Es un identificador único para la práctica de empleo.",
+      "confidence": 0.9
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "id_persona",
+      "category": "identificador_directo",
+      "risk": "muy_alto",
+      "recommended_treatment": "eliminar",
+      "rationale": "Es un identificador único para la persona que realiza la práctica de empleo.",
+      "confidence": 0.9
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "salario_mensual",
+      "category": "no_sensible",
+      "risk": "bajo",
+      "recommended_treatment": "agrupar",
+      "rationale": "Es una información financiera que no identifica a la persona.",
+      "confidence": 0.8
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "duracion_meses",
+      "category": "no_sensible",
+      "risk": "bajo",
+      "recommended_treatment": "agrupar",
+      "rationale": "Es una información temporal que no identifica a la persona.",
+      "confidence": 0.8
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "empresa",
+      "category": "no_sensible",
+      "risk": "bajo",
+      "recommended_treatment": "agrupar",
+      "rationale": "Es una información corporativa que no identifica a la persona.",
+      "confidence": 0.8
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "sector",
+      "category": "no_sensible",
+      "risk": "bajo",
+      "recommended_treatment": "agrupar",
+      "rationale": "Es una información categorizada que no identifica a la persona.",
+      "confidence": 0.8
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "ciudad_puesto",
+      "category": "no_sensible",
+      "risk": "bajo",
+      "recommended_treatment": "agrupar",
+      "rationale": "Es una información geográfica que no identifica a la persona.",
+      "confidence": 0.8
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "provincia_puesto",
+      "category": "no_sensible",
+      "risk": "bajo",
+      "recommended_treatment": "agrupar",
+      "rationale": "Es una información geográfica que no identifica a la persona.",
+      "confidence": 0.8
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "ccaa_puesto",
+      "category": "no_sensible",
+      "risk": "bajo",
+      "recommended_treatment": "agrupar",
+      "rationale": "Es una información geográfica que no identifica a la persona.",
+      "confidence": 0.8
+    },
+    {
+      "table": "practicas_empleo",
+      "name": "pais_puesto",
+      "category": "no_sensible",
+      "risk": "bajo",
+      "recommended_treatment": "agrupar",
+      "rationale": "Es una información geográfica que no identifica a la persona.",
+      "confidence": 0.8
+    }
+  ]
+}

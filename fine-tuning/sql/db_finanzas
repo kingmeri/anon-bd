@@ -1,0 +1,24 @@
+CREATE DATABASE IF NOT EXISTS ecommerce_finanzas_simple;
+USE ecommerce_finanzas_simple;
+
+-- Clientes de un e-commerce/financiera
+CREATE TABLE cliente (
+  id_cliente         INT AUTO_INCREMENT PRIMARY KEY,  -- identificador_directo (técnico)                      -- cuasi-identificador
+  nombre_completo    VARCHAR(100), 
+  dni                VARCHAR(20),
+  edad               TINYINT,
+  cp                 CHAR(5),                         -- cuasi-identificador (CP)
+  ciudad             VARCHAR(80),                     -- cuasi-identificador (localidad)              -- cuasi-identificador (educación)
+  salario_mensual    INT,                             -- atributo_sensible (salario)
+  scoring_crediticio INT,
+  IBAN               VARCHAR(50)                              -- atributo_sensible (score)
+);
+
+-- Pedidos muy simplificados
+CREATE TABLE pedido (
+  id_pedido          INT AUTO_INCREMENT PRIMARY KEY,  -- no_sensible (id_pedido)
+  id_cliente         INT NOT NULL,
+  fecha_registro     DATETIME,                        -- no_sensible
+  importe_total      DECIMAL(10,2),                   -- no_sensible
+  FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
+);

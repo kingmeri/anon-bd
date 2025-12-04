@@ -1,0 +1,7 @@
+name_input,name_canonical,pred_category,gold_category,risk_info,recommended_treatment_info,correct,in_eval
+id_matricula,id_pedido,identificador_directo,no_sensible,,,False,True
+id_persona,id_pedido,cuasi_identificador,no_sensible,,,False,True
+curso,,cuasi_identificador,,,,,False
+familia_profesional,,cuasi_identificador,,,,,False
+modalidad,,cuasi_identificador,,,,,False
+fecha_matricula,,identificador_directo,,,,,False
