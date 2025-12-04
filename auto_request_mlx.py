@@ -91,7 +91,7 @@ def build_retrieval_query(table_name, info):
         for c in info["columns"]
     )
     return (
-        "Clasificación de columnas de una tabla MySQL según GDPR, LOPDGDD y guías AEPD "
+        "Clasificación de columnas de una tabla MySQL según GDPR, LOPDGDD y guías AEPD"
         "en identificador_directo, cuasi_identificador, atributo_sensible y no_sensible. "
         f"Tabla: {table_name}. Columnas: {col_desc}"
     )
@@ -297,11 +297,34 @@ Devuelve SOLO JSON con:
     for t, info in tables.items():
         lines = [SYSTEM_PROMPT]
 
+    
+
+
+
         # --- RAG: recuperar contexto y añadirlo al prompt, si está activado ---
         if rag_client is not None:
             query = build_retrieval_query(t, info)
-            ctx_chunks = rag_client.retrieve_context(query, k=3)
-            context_block = build_context_block(ctx_chunks, max_chunks=3, max_chars_per_chunk=1200)
+
+            # si quieres, puedes deducir el dominio_hint según la BD o tabla;
+            # aquí te pongo un ejemplo fijo de 'rrhh' para bases de empleo/formación:
+            domain_hint = "rrhh"  # o None si no lo sabes
+
+            ctx_chunks = rag_client.retrieve_mixed_context(
+                query,
+                scope="core",         # no traemos los legales salvo que quieras
+                domain_hint=domain_hint,
+                n_defs=1,
+                n_ejemplos=3,
+                n_casos_borde=1,
+                n_dominios=1,
+                n_max_total=8,
+            )
+
+            context_block = build_context_block(
+                ctx_chunks,
+                max_chunks=5,
+                max_chars_per_chunk=1200,
+            )
 
             lines.append("Tienes acceso al siguiente CONTEXTO relevante sobre anonimización y clasificación de columnas:")
             lines.append("[CONTEXTO]")

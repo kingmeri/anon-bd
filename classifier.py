@@ -28,3 +28,6 @@ def classify_columns_with_rag(columns, k=5):
     prompt = build_prompt_with_context(columns, ctx)
     raw = call_ollama(prompt)
     return json.loads(raw), ctx
+
+
+
