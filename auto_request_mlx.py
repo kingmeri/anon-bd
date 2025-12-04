@@ -297,10 +297,6 @@ Devuelve SOLO JSON con:
     for t, info in tables.items():
         lines = [SYSTEM_PROMPT]
 
-    
-
-
-
         # --- RAG: recuperar contexto y añadirlo al prompt, si está activado ---
         if rag_client is not None:
             query = build_retrieval_query(t, info)
@@ -382,28 +378,74 @@ Devuelve SOLO JSON con:
             continue
 
         # parseo robusto
+        i        # ---------- parseo robusto del JSON ----------
         items = []
+        cols_this_table = info["columns"]
+
+        # 1) Intento normal: JSON completo
         try:
             j = json.loads(txt)
             items = j.get("items", [])
         except Exception:
-            m = re.search(r"\{[\s\S]*\}", txt)
-            if m:
-                try:
-                    j = json.loads(m.group(0))
-                    items = j.get("items", [])
-                except Exception:
-                    items = []
+            items = []
 
-        # recolectar
-        for it in items:
-            all_items.append({
-                "table": t,
-                "name": it.get("name",""),
-                "category": it.get("category",""),
-                "rationale": it.get("rationale",""),
-                "confidence": it.get("confidence", None)
-            })
+        # 2) Si falla o items viene vacío, intentamos rescatar objetos sueltos { ... }
+        if not items:
+            # Buscamos todos los bloques {...} que contengan "name" y "category"
+            obj_texts = re.findall(
+                r'\{[^{}]*"name"\s*:\s*".*?"[^{}]*"category"\s*:\s*".*?"[^{}]*\}',
+                txt,
+                flags=re.S
+            )
+            parsed = []
+            for o in obj_texts:
+                try:
+                    parsed.append(json.loads(o))
+                except Exception:
+                    continue
+            items = parsed
+
+        # ---------- recolección con lógica robusta ----------
+        if not items:
+            # No hemos podido parsear nada útil:
+            # generamos una fila "dummy" por cada columna para que NINGUNA tabla desaparezca.
+            print(f"[WARN] Tabla {t}: no se pudo parsear JSON de la respuesta, se generan predicciones vacías por columna.")
+            for c in cols_this_table:
+                all_items.append({
+                    "table": t,
+                    "name": c["name"],
+                    "category": "",
+                    "rationale": "sin_prediccion_parseo_fallido",
+                    "confidence": None,
+                })
+        else:
+            # Tenemos items. Usamos SOLO el orden, ignoramos 'name' del modelo.
+            n_cols = len(cols_this_table)
+            n_items = len(items)
+            n_common = min(n_cols, n_items)
+
+            # 1) Emparejar las que encajan en longitud
+            for c, it in zip(cols_this_table[:n_common], items[:n_common]):
+                all_items.append({
+                    "table": t,
+                    "name": c["name"],  # usamos SIEMPRE el nombre real de la columna
+                    "category": it.get("category", ""),
+                    "rationale": it.get("rationale", ""),
+                    "confidence": it.get("confidence", None),
+                })
+
+            # 2) Si hay MÁS columnas que items → rellenamos faltantes
+            if n_cols > n_items:
+                print(f"[WARN] Tabla {t}: hay {n_cols} columnas pero solo {n_items} items, se rellenan las restantes vacías.")
+                for c in cols_this_table[n_items:]:
+                    all_items.append({
+                        "table": t,
+                        "name": c["name"],
+                        "category": "",
+                        "rationale": "sin_prediccion_por_falta_de_items",
+                        "confidence": None,
+                    })
+            # Si hay MÁS items que columnas, los ignoramos (no tenemos a quién asignarlos)
 
         time.sleep(args.sleep_s)
 
